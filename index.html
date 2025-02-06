@@ -9,7 +9,6 @@
 <body>
   <!-- Night Mode Toggle -->
   <div class="theme-toggle">
-   <!-- From Uiverse.io by RiccardoRapelli --> 
 <label class="switch">
   <input id="input" type="checkbox" checked="darkTheme" />
   <div class="slider round">
@@ -77,7 +76,6 @@
   </div>
 </label>
   </div>
-
   <!-- Content Container -->
   <div class="container">
     <h1>It is your birthday already?</h1>
@@ -162,6 +160,55 @@
   </div>
   <button id="proceed-button">Proceed</button>
 </div>
+<!-- Confirmation Questions (Hidden by Default) -->
+<div id="confirmation-page" class="hidden">
+  <div id="q1">
+    <h2>Are you Sure?</h2>
+    <button id="yes-q1">Yes</button>
+    <button id="no-q1">No</button>
+  </div>
+  <div id="q2" class="hidden">
+    <h2>Are you really sure?</h2>
+    <button id="yes-q2">Yes</button>
+    <button id="no-q2">No</button>
+  </div>
+  <div id="q3" class="hidden">
+    <h2>Like.. are you really Nehir?</h2>
+    <button id="yes-q3">Yes</button>
+    <button id="yes2-q3">Yes</button>
+  </div>
+  <div id="final-selection" class="hidden">
+    <h2>If you’re really the real Nehir, Choose:</h2>
+    <div class="checkbox-container vertical">
+      <div class="cntr">
+        <input type="radio" name="final-choice" id="cbx1" class="hidden-xs-up">
+        <label for="cbx1" class="cbx"></label>
+        <span class="lbl">Arigato</span>
+      </div>
+      <div class="cntr">
+        <input type="radio" name="final-choice" id="cbx2" class="hidden-xs-up">
+        <label for="cbx2" class="cbx"></label>
+        <span class="lbl">Ronaldo</span>
+      </div>
+      <div class="cntr">
+        <input type="radio" name="final-choice" id="cbx3" class="hidden-xs-up">
+        <label for="cbx3" class="cbx"></label>
+        <span class="lbl">Soywa</span>
+      </div>
+      <div class="cntr">
+        <input type="radio" name="final-choice" id="cbx4" class="hidden-xs-up">
+        <label for="cbx4" class="cbx"></label>
+        <span class="lbl">Nani</span>
+      </div>
+      <div class="cntr">
+        <input type="radio" name="final-choice" id="cbx5" class="hidden-xs-up">
+        <label for="cbx5" class="cbx"></label>
+        <span class="lbl">Soya</span>
+      </div>
+    </div>
+    <button id="confirm-final" >Confirm</button>
+    </div>
+   <div class="content"> <!-- the falling animations -->
   <script src="script.js"></script>
 </body>
 </html>

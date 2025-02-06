@@ -1,16 +1,61 @@
 /* Light Mode (Default) */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
   font-family: 'Poppins', Arial, sans-serif;
   text-align: center;
   margin: 0;
+  overflow: hidden;
   padding: 0;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #ffffff, #f0f0f0);
+  background: linear-gradient(135deg, #B2FFFF, #FFC0CB);
   color: black;
   transition: background 0.4s, color 0.4s;
+}
+
+/* the falling animations*/
+.content {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ff69b4;
+    z-index: 10;
+}
+
+h1 {
+    font-size: 4rem;
+}
+
+p {
+    font-size: 1.5rem;
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #ff69b4;
+    animation: fall 3s infinite;
+}
+
+@keyframes fall {
+    0% {
+        top: -10px;
+        opacity: 1;
+    }
+    100% {
+        top: 100vh;
+        opacity: 0;
+    }
 }
 
 .container {
@@ -26,15 +71,14 @@ body {
 h1 {
   font-size: 2.5rem;
   margin-bottom: 10px;
-  animation: slideIn 1s ease-in-out;
 }
 
 p {
   font-size: 1.2rem;
   margin-bottom: 20px;
-  animation: slideIn 1.2s ease-in-out;
 }
 
+/* first page button "click me"*/
 button {
   appearance: none;
   background-color: transparent;
@@ -64,7 +108,8 @@ button {
 
 button:hover {
   color: #fff;
-  background-color: #1A1A1A;
+  background-color: #D9AFD9;
+  background-image: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%);
   box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
   transform: translateY(-2px);
 }
@@ -92,6 +137,7 @@ body.dark-mode button {
 
 body.dark-mode button:hover {
   background-color: #efefef;
+  background-image: none;
   color: #1a1a1a;
 }
 
@@ -102,7 +148,6 @@ body.dark-mode button:hover {
   right: 20px;
 }
 
-/* From Uiverse.io by RiccardoRapelli */ 
 .switch {
   position: relative;
   display: inline-block;
@@ -545,30 +590,30 @@ body.dark-mode .ios-checkbox span {
 
 #proceed-button:hover {
   background-color: #A60000;
+  background-image: none;
 }
  /* Smooth transition for button movement */
 #proceed-button {
   transition: transform 0.5s ease; /* Smooth animation */
 }
 
-/* Message Box */
-.message-box {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #ff6b6b;
+/* Confirmation Button */
+#confirm-button {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: #3b82f6;
   color: white;
-  padding: 10px 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  opacity: 0;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
 }
 
-.message-box.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
+#confirm-button:hover {
+  background-color: #2563eb;
+  background-image: none;
 }
 
 /* Button Movement Boundaries */
@@ -576,4 +621,293 @@ body.dark-mode .ios-checkbox span {
   transition: transform 0.5s ease;
   position: relative;
   z-index: 1; /* Ensure button stays above checkboxes */
+}
+
+/* Confirmation Page Styles */
+#confirmation-page {
+  text-align: center;
+  padding: 20px;
+}
+
+#confirmation-page h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+body.dark-mode #confirmation-page h2 {
+  color: white !important;
+}
+
+#confirmation-page button {
+  padding: 12px 24px;
+  margin: 10px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+#confirmation-page button:hover {
+  opacity: 0.9;
+}
+
+#yes-q1, #yes-q2, #yes-q3, #yes2-q3 {
+  background-color: #3b82f6;
+  color: white;
+  background-image: none;
+}
+
+#no-q1, #no-q2 {
+  background-color: #ef4444;
+  color: white;
+  background-image: none;
+}
+
+#final-selection {
+  background: none;
+  padding: 20px;
+  border-radius: 10px;
+  backdrop-filter: blur(10px); /* Frosted glass effect */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#final-selection .checkbox-container.vertical {
+  background: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.cbx {
+  position: relative;
+  top: 1px;
+  width: 27px;
+  height: 27px;
+  border: 1px solid #c8ccd4;
+  border-radius: 3px;
+  transition: background 0.1s ease;
+  cursor: pointer;
+  display: block;
+}
+
+.cbx:after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 8px;
+  width: 7px;
+  height: 14px;
+  opacity: 0;
+  transform: rotate(45deg) scale(0);
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transition: all 0.3s ease;
+  transition-delay: 0.15s;
+}
+
+.lbl {
+  margin-left: 10px;
+  font-size: 16px;
+  color: #333;
+  width: 80px; /* Fixed width for all labels */
+  display: inline-block; /* Ensure the width is applied */
+}
+
+body.dark-mode .lbl {
+  color: white; 
+}
+
+/* Radio button styles */
+input[type="radio"]:checked ~ .cbx {
+  border-color: transparent;
+  background: #6871f1;
+  animation: jelly 0.6s ease;
+}
+
+input[type="radio"]:checked ~ .cbx:after {
+  opacity: 1;
+  transform: rotate(45deg) scale(1);
+}
+
+.cntr {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+@keyframes jelly {
+  from {
+    transform: scale(1, 1);
+  }
+  30% {
+    transform: scale(1.25, 0.75);
+  }
+  40% {
+    transform: scale(0.75, 1.25);
+  }
+  50% {
+    transform: scale(1.15, 0.85);
+  }
+  65% {
+    transform: scale(0.95, 1.05);
+  }
+  75% {
+    transform: scale(1.05, 0.95);
+  }
+  to {
+    transform: scale(1, 1);
+  }
+}
+
+.hidden-xs-up {
+  display: none !important;
+}
+
+/* Confirmation Button */
+#confirm-final {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  width: 200px; 
+  padding: 8px 0;
+}
+
+#confirm-final:hover {
+  background-color: #2563eb;
+  background-image: none;
+}
+
+.message-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  text-align: center;
+  z-index: 1000;
+  max-width: 400px;
+  width: 100%;
+}
+
+.message-box p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.message-box button {
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.message-box button:hover {
+  opacity: 0.9;
+}
+
+/* Dark Mode */
+body.dark-mode .message-box {
+  background: rgba(0, 0, 0, 0.9); /* Dark background for dark mode */
+  color: #efefef; /* Light text for dark mode */
+}
+
+/* Ensure buttons are visible in dark mode */
+body.dark-mode .message-box button {
+  background-color: #3b82f6; /* Blue button background */
+  color: white; /* White text for buttons */
+}
+
+body.dark-mode .message-box button:hover {
+  opacity: 0.8; /* Slightly lighter on hover */
+}
+
+/* Yayy Button */
+#yayy-button {
+  background-color: #10b981;
+  color: white;
+  background-image: none;
+}
+
+#do-nothing-button {
+  background-color: #ef4444;
+  color: white;
+  background-image: none;
+}
+
+#continue-button {
+  background-color: #3b82f6;
+  color: white;
+  background-image: none;
+}
+
+/* Floating Message */
+.floating-message {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  max-width: 300px;
+  width: 100%;
+}
+
+
+.floating-message p {
+  margin: 0;
+  font-size: 20px;
+  color: #7e0808;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.floating-message button {
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  border-radius: 8px;
+  color: #666;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100px; 
+  padding: 8px 0; 
+  text-align: center;
+}
+
+/* Disable pointer events for the entire page */
+.disable-interaction {
+  pointer-events: none;
+}
+
+/* Enable pointer events for the message box */
+.message-box {
+  pointer-events: auto; /* Ensure the message box is clickable */
 }
