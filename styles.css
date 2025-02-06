@@ -911,3 +911,13 @@ body.dark-mode .message-box button:hover {
 .message-box {
   pointer-events: auto; /* Ensure the message box is clickable */
 }
+
+#popup-text::after {
+  content: "|";
+  animation: blink 0.6s infinite alternate;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}

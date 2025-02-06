@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const toggle = document.getElementById("input"); // New toggle button ID
   const body = document.body;
+  userRadios.forEach(radio => (radio.checked = false));
 
   // Load saved theme from localStorage
   if (localStorage.getItem("darkTheme") === "true") {
@@ -16,6 +17,14 @@ document.addEventListener("DOMContentLoaded", function () {
       body.classList.remove("dark-mode");
       localStorage.setItem("darkTheme", "false");
     }
+  });
+});
+
+// Uncheck all radio buttons in the final selection section on page load
+window.addEventListener('load', () => {
+  const finalSelectionRadios = document.querySelectorAll('input[name="final-choice"]');
+  finalSelectionRadios.forEach(radio => {
+    radio.checked = false; // Uncheck all radio buttons
   });
 });
 
@@ -38,10 +47,7 @@ const yes2Q3 = document.getElementById('yes2-q3');
 const confirmFinalButton = document.getElementById('confirm-final');
 const cbx5 = document.getElementById('cbx5');
 
-// Uncheck all radio buttons when the page loads
-window.onload = () => {
-  userRadios.forEach(radio => (radio.checked = false)); // Uncheck radio buttons
-};
+
 let clickCount = 0;
 
 // Show the selection page when "Click Me" is clicked
@@ -55,9 +61,16 @@ userRadios.forEach(radio => {
   radio.addEventListener('change', () => {
     if (radio.value === 'Nehir') {
       proceedButton.textContent = 'Click here, four eyes';
+
+      // 🛠 RESET the confirmation steps
+      q1.classList.add('hidden');
+      q2.classList.add('hidden');
+      q3.classList.add('hidden');
+      finalSelection.classList.add('hidden');
+      confirmationPage.classList.add('hidden');
+
     } else {
       proceedButton.textContent = 'Proceed';
-      // Reset button position and transform
       proceedButton.style.transition = 'transform 0.3s ease';
       proceedButton.style.transform = 'translate(0, 0)';
       clickCount = 0; // Reset click count
@@ -100,7 +113,19 @@ yesQ1.addEventListener('click', () => {
 noQ1.addEventListener('click', () => {
   confirmationPage.classList.add('hidden');
   selectionPage.classList.remove('hidden');
+
+  // Reset radio selection (Uncheck all)
+  userRadios.forEach(radio => (radio.checked = false));
+
+  // Reset button position and click count
+  proceedButton.style.transition = 'none';
+  proceedButton.style.transform = 'translate(0, 0)';
+  clickCount = 0;
+
+  // Reset button text
+  proceedButton.textContent = 'Proceed';
 });
+
 
 // Handle Q2: Are you really sure?
 yesQ2.addEventListener('click', () => {
@@ -111,6 +136,17 @@ yesQ2.addEventListener('click', () => {
 noQ2.addEventListener('click', () => {
   confirmationPage.classList.add('hidden');
   selectionPage.classList.remove('hidden');
+
+  // Reset radio selection (Uncheck all)
+  userRadios.forEach(radio => (radio.checked = false));
+
+  // Reset button position and click count
+  proceedButton.style.transition = 'none';
+  proceedButton.style.transform = 'translate(0, 0)';
+  clickCount = 0;
+
+  // Reset button text
+  proceedButton.textContent = 'Proceed';
 });
 
 // Handle Q3: Like.. are you really Nehir?
@@ -262,9 +298,9 @@ function createPopupMessage(message, buttons) {
 function handleWrongAttempt() {
   wrongAttempts++;
   if (wrongAttempts === 3) {
-    createPopupMessage("What are you trying to do? The real Nehir would have known from the first glance.", [
+    createPopupMessage("<span id='popup-text'></span>", [
       { id: "okay-button", text: "Okay", action: () => {
-        createPopupMessage("Is that you Nehir?", [
+        createPopupMessage("<span id='popup-text'></span>", [
           { id: "yes-button", text: "Yes", action: () => {
             // Handle "Yes" action if needed
           }},
@@ -272,17 +308,36 @@ function handleWrongAttempt() {
             // Handle "Ofcourse" action if needed
           }}
         ]);
+        setTimeout(() => {
+          const textElement = document.getElementById('popup-text');
+          typeText(textElement, "Is that you, Nehir?", 50);
+      }, 100);      
       }}
     ]);
+    setTimeout(() => {
+      const textElement = document.getElementById('popup-text');
+      typeText(
+          textElement, 
+          "What are you trying to do? The real Nehir would have known from the first glance.", 
+          50, // Typing speed
+          26, // Pause after "What are you trying to do?" (26 characters long)
+          2000 // Pause duration (1 second)
+      );
+  }, 100);  
+  
     return true; // Return true to indicate the popup was triggered
   }
 
   if (wrongAttempts === 7) {
-    createPopupMessage("Trying to test something?", [
+    createPopupMessage("<span id='popup-text'></span>", [
       { id: "okay-button", text: "Okay", action: () => {
         // Handle "Okay" action if needed
       }}
     ]);
+    setTimeout(() => {
+      const textElement = document.getElementById('popup-text');
+      typeText(textElement, "Trying to test something?", 40);
+  }, 100);  
     return true; // Return true to indicate the popup was triggered
   }
 
@@ -307,22 +362,63 @@ confirmFinalButton.addEventListener('click', () => {
       case 'cbx1': // Arigato
       case 'cbx3': // Soywa
       case 'cbx4': // Nani
-        createPopupMessage("Please don't try again. We have an unbreakable security system.", [
+        createPopupMessage("<span id='popup-text'></span>", [
           { id: "okay-button", text: "Okay", action: () => {
             document.querySelector('.message-box').remove();
           }}
         ]);
+        setTimeout(() => {
+          const textElement = document.getElementById('popup-text');
+          typeText(textElement, "Please don't try again. We have an unbreakable security system.", 45);
+      }, 100);      
         break;
       case 'cbx2': // Ronaldo
-        createPopupMessage("What Ronaldo?", [
+        createPopupMessage("<span id='popup-text'></span>", [
           { id: "okay-button", text: "Okay", action: () => {
             document.querySelector('.message-box').remove();
           }}
         ]);
+        setTimeout(() => {
+          const textElement = document.getElementById('popup-text');
+          typeText(textElement, "What Ronaldo?", 50);
+      }, 100);      
+      
         break;
       case 'cbx5': // Soya
-        // Do nothing, as per your request
+        // Do nothing
         break;
     }
   }
 });
+
+const typingSound = new Audio("sounds/omori.mp3"); // Change this to your sound file
+typingSound.loop = true; // Loop sound while typing
+
+function typeText(element, text, speed, pauseAt, pauseTime, onComplete) {
+    let index = 0;
+    let isPaused = false;
+    typingSound.play(); // Start playing the typing sound
+
+    function type() {
+        if (index < text.length) {
+            // If we reach the pause point, delay typing
+            if (index === pauseAt && !isPaused) {
+                isPaused = true;
+                typingSound.pause(); // Stop sound during pause
+                setTimeout(() => {
+                    typingSound.play(); // Resume sound after pause
+                    type();
+                }, pauseTime);
+                return;
+            }
+            element.innerHTML += text.charAt(index);
+            index++;
+            setTimeout(type, speed);
+        } else {
+            typingSound.pause(); // Stop sound when finished
+            if (onComplete) onComplete(); // Call onComplete if provided
+        }
+    }
+
+    type();
+}
