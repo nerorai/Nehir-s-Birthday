@@ -46,6 +46,13 @@ const yesQ3 = document.getElementById('yes-q3');
 const yes2Q3 = document.getElementById('yes2-q3');
 const confirmFinalButton = document.getElementById('confirm-final');
 const cbx5 = document.getElementById('cbx5');
+const congratsPage = document.getElementById("congratsPage");
+const securityMessageBox = document.getElementById("securityMessageBox");
+const floatingMessage = document.getElementById("floatingMessage");
+const continueButton = document.getElementById("continue-button");
+const doNothingButton = document.getElementById("do-nothing-button");
+const yayyButton = document.getElementById("yayy-button");
+
 
 
 let clickCount = 0;
@@ -205,61 +212,28 @@ function createConfetti() {
         document.body.appendChild(confetti);
     }
 }
-
 window.onload = createConfetti;
 
 // Handle confirmation button click
 confirmFinalButton.addEventListener('click', () => {
   const selectedOption = document.querySelector('input[name="final-choice"]:checked');
-
-  // Only proceed if "Soya" is selected
   if (selectedOption && selectedOption.id === 'cbx5') {
-    // Hide the final selection page
+    wrongAttempts = 0;
     finalSelection.classList.add('hidden');
+    congratsPage.classList.remove('hidden');
 
-    // Create a new page for the "Congratulation" message
-    const congratsPage = document.createElement('div');
-    congratsPage.innerHTML = `
-      <div class="message-box">
-        <h2>Congratulation dostum, you passed the security system</h2>
-        <button id="yayy-button">Yayy</button>
-      </div>
-    `;
-    document.body.appendChild(congratsPage);
-
-    // Handle "Yayy" button click
     const yayyButton = document.getElementById('yayy-button');
     yayyButton.addEventListener('click', () => {
-      // Remove the "Congratulation" message box
       congratsPage.remove();
-
-      // Create a new message box for the security system explanation
-      const securityMessageBox = document.createElement('div');
-      securityMessageBox.innerHTML = `
-        <div class="message-box">
-          <p>Why all this you say? This is our super intelligent most advanced security system, merely to ensure that you’re the real Nehir.</p>
-          <button id="continue-button">Continue</button>
-          <button id="do-nothing-button">Do nothing</button>
-        </div>
-      `;
-      document.body.appendChild(securityMessageBox);
-
-      // Handle "Do nothing" button click
+      securityMessageBox.classList.remove('hidden')
+      
       const doNothingButton = document.getElementById('do-nothing-button');
       doNothingButton.addEventListener('click', () => {
-        // Create a floating message
-        const floatingMessage = document.createElement('div');
-        floatingMessage.classList.add('floating-message');
-        floatingMessage.innerHTML = `
-          <p>You did nothing</p>
-          <button>...</button>
-        `;
-        document.body.appendChild(floatingMessage);
-
-        // Close the floating message when the "..." button is clicked
+        floatingMessage.classList.remove('hidden')
+        
         const closeButton = floatingMessage.querySelector('button');
         closeButton.addEventListener('click', () => {
-          floatingMessage.remove();
+          floatingMessage.classList.add('hidden');
         });
       });
     });
@@ -302,10 +276,8 @@ function handleWrongAttempt() {
       { id: "okay-button", text: "Okay", action: () => {
         createPopupMessage("<span id='popup-text'></span>", [
           { id: "yes-button", text: "Yes", action: () => {
-            // Handle "Yes" action if needed
           }},
           { id: "ofcourse-button", text: "O-Ofcourse I'm N-Nehir", action: () => {
-            // Handle "Ofcourse" action if needed
           }}
         ]);
         setTimeout(() => {
@@ -321,29 +293,27 @@ function handleWrongAttempt() {
           "What are you trying to do? The real Nehir would have known from the first glance.", 
           50, // Typing speed
           26, // Pause after "What are you trying to do?" (26 characters long)
-          2000 // Pause duration (1 second)
+          1500 // Pause duration (1 second)
       );
   }, 100);  
   
-    return true; // Return true to indicate the popup was triggered
+    return true;
   }
 
   if (wrongAttempts === 7) {
     createPopupMessage("<span id='popup-text'></span>", [
       { id: "okay-button", text: "Okay", action: () => {
-        // Handle "Okay" action if needed
       }}
     ]);
     setTimeout(() => {
       const textElement = document.getElementById('popup-text');
       typeText(textElement, "Trying to test something?", 40);
   }, 100);  
-    return true; // Return true to indicate the popup was triggered
+    return true;
   }
 
-  return false; // Return false if no popup was triggered
+  return false;
 }
-
 
 // Handle final selection button click
 confirmFinalButton.addEventListener('click', () => {
@@ -398,6 +368,10 @@ function typeText(element, text, speed, pauseAt, pauseTime, onComplete) {
     let index = 0;
     let isPaused = false;
     typingSound.play(); // Start playing the typing sound
+    const buttons = document.querySelectorAll('button');
+buttons.forEach(button => {
+    button.style.pointerEvents = 'none';
+});
 
     function type() {
         if (index < text.length) {
@@ -416,9 +390,26 @@ function typeText(element, text, speed, pauseAt, pauseTime, onComplete) {
             setTimeout(type, speed);
         } else {
             typingSound.pause(); // Stop sound when finished
+            buttons.forEach(button => {
+              button.style.pointerEvents = 'auto';
+          });
             if (onComplete) onComplete(); // Call onComplete if provided
         }
     }
 
     type();
 }
+
+// Trigger the floating message when "Do nothing" is clicked
+doNothingButton.addEventListener("click", () => {
+  const floatingMessage = document.getElementById("floatingMessage");
+  const floatingText = document.getElementById("floating-text");
+
+  floatingMessage.classList.remove("hidden");
+
+  // Clear the text before starting the typing effect
+  floatingText.innerHTML = "";
+
+  // Call the existing typeText function
+  typeText(floatingText, "You did 'nothing'.", 50); // Adjust speed (100ms per character)
+});
