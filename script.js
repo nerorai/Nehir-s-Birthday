@@ -47,7 +47,7 @@ const yes2Q3 = document.getElementById('yes2-q3');
 const confirmFinalButton = document.getElementById('confirm-final');
 const cbx5 = document.getElementById('cbx5');
 const congratsPage = document.getElementById("congratsPage");
-const securityMessageBox = document.getElementById("securityMessageBox");
+const securityBox = document.getElementById("securityBox");
 const floatingMessage = document.getElementById("floatingMessage");
 const continueButton = document.getElementById("continue-button");
 const doNothingButton = document.getElementById("do-nothing-button");
@@ -171,10 +171,10 @@ yes2Q3.addEventListener('click', () => {
 noQ1.addEventListener('click', () => {
   createPopupMessage("You’re still welcome ♡.", [
     { id: "okay-button", text: "Okay", action: () => {
-      document.querySelector('.message-box').remove();
+      document.querySelector('.alert-box').remove();
       createPopupMessage("NOW GO AND CLICK YOUR NAME.", [
         { id: "okay-button", text: "Okay", action: () => {
-          document.querySelector('.message-box').remove();
+          document.querySelector('.alert-box').remove();
           confirmationPage.classList.add('hidden'); // Hide confirmation page
           selectionPage.classList.remove('hidden'); // Show selection page
         }}
@@ -187,10 +187,10 @@ noQ1.addEventListener('click', () => {
 noQ2.addEventListener('click', () => {
   createPopupMessage("You’re still welcome ♡.", [
     { id: "okay-button", text: "Okay", action: () => {
-      document.querySelector('.message-box').remove();
+      document.querySelector('.alert-box').remove();
       createPopupMessage("NOW GO AND CLICK YOUR NAME.", [
         { id: "okay-button", text: "Okay", action: () => {
-          document.querySelector('.message-box').remove();
+          document.querySelector('.alert-box').remove();
           confirmationPage.classList.add('hidden'); // Hide confirmation page
           selectionPage.classList.remove('hidden'); // Show selection page
         }}
@@ -225,7 +225,7 @@ confirmFinalButton.addEventListener('click', () => {
     const yayyButton = document.getElementById('yayy-button');
     yayyButton.addEventListener('click', () => {
       congratsPage.remove();
-      securityMessageBox.classList.remove('hidden')
+      securityBox.classList.remove('hidden')
       
       const doNothingButton = document.getElementById('do-nothing-button');
       doNothingButton.addEventListener('click', () => {
@@ -248,7 +248,7 @@ function createPopupMessage(message, buttons) {
   document.body.classList.add('disable-interaction');
 
   const popup = document.createElement('div');
-  popup.classList.add('message-box');
+  popup.classList.add('alert-box');
   popup.innerHTML = `
     <p>${message}</p>
     <div>
@@ -334,7 +334,7 @@ confirmFinalButton.addEventListener('click', () => {
       case 'cbx4': // Nani
         createPopupMessage("<span id='popup-text'></span>", [
           { id: "okay-button", text: "Okay", action: () => {
-            document.querySelector('.message-box').remove();
+            document.querySelector('.alert-box').remove();
           }}
         ]);
         setTimeout(() => {
@@ -345,59 +345,89 @@ confirmFinalButton.addEventListener('click', () => {
       case 'cbx2': // Ronaldo
         createPopupMessage("<span id='popup-text'></span>", [
           { id: "okay-button", text: "Okay", action: () => {
-            document.querySelector('.message-box').remove();
+            document.querySelector('.alert-box').remove();
           }}
         ]);
         setTimeout(() => {
           const textElement = document.getElementById('popup-text');
           typeText(textElement, "What Ronaldo?", 50);
       }, 100);      
-      
-        break;
-      case 'cbx5': // Soya
-        // Do nothing
-        break;
     }
   }
 });
 
-const typingSound = new Audio("sounds/omori.mp3"); // Change this to your sound file
-typingSound.loop = true; // Loop sound while typing
+let audioContext;
+let typingSoundBuffer;
+let typingSoundSource;
+
+function loadAudio() {
+    fetch('sounds/omori.mp3')
+        .then(response => response.arrayBuffer())
+        .then(data => audioContext.decodeAudioData(data))
+        .then(buffer => {
+            typingSoundBuffer = buffer;
+        });
+}
+
+function initAudio() {
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    loadAudio();
+}
+
+function playTypingSound() {
+    if (!typingSoundBuffer) return;
+
+    typingSoundSource = audioContext.createBufferSource();
+    typingSoundSource.buffer = typingSoundBuffer;
+    typingSoundSource.loop = true;
+    typingSoundSource.connect(audioContext.destination);
+    typingSoundSource.start();
+}
+
+function stopTypingSound() {
+    if (typingSoundSource) {
+        typingSoundSource.stop();
+        typingSoundSource.disconnect();
+    }
+}
+
+initAudio();
 
 function typeText(element, text, speed, pauseAt, pauseTime, onComplete) {
-    let index = 0;
-    let isPaused = false;
-    typingSound.play(); // Start playing the typing sound
-    const buttons = document.querySelectorAll('button');
-buttons.forEach(button => {
-    button.style.pointerEvents = 'none';
-});
+  let index = 0;
+  let isPaused = false;
 
-    function type() {
-        if (index < text.length) {
-            // If we reach the pause point, delay typing
-            if (index === pauseAt && !isPaused) {
-                isPaused = true;
-                typingSound.pause(); // Stop sound during pause
-                setTimeout(() => {
-                    typingSound.play(); // Resume sound after pause
-                    type();
-                }, pauseTime);
-                return;
-            }
-            element.innerHTML += text.charAt(index);
-            index++;
-            setTimeout(type, speed);
-        } else {
-            typingSound.pause(); // Stop sound when finished
-            buttons.forEach(button => {
+  playTypingSound(); // Start playing the typing sound
+
+  const buttons = document.querySelectorAll('button');
+  buttons.forEach(button => {
+      button.style.pointerEvents = 'none';
+  });
+
+  function type() {
+      if (index < text.length) {
+          if (index === pauseAt && !isPaused) {
+              isPaused = true;
+              stopTypingSound(); // Stop sound during pause
+              setTimeout(() => {
+                  playTypingSound(); // Resume sound after pause
+                  type();
+              }, pauseTime);
+              return;
+          }
+          element.innerHTML += text.charAt(index);
+          index++;
+          setTimeout(type, speed);
+      } else {
+          stopTypingSound(); // Stop sound when finished
+          buttons.forEach(button => {
               button.style.pointerEvents = 'auto';
           });
-            if (onComplete) onComplete(); // Call onComplete if provided
-        }
-    }
+          if (onComplete) onComplete();
+      }
+  }
 
-    type();
+  type();
 }
 
 // Trigger the floating message when "Do nothing" is clicked

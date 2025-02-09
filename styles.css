@@ -1,8 +1,37 @@
-/* Light Mode (Default) */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* the falling animations*/
+.content {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ff69b4;
+  z-index: 10;
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #ff69b4;
+  animation: fall 3s infinite;
+}
+
+@keyframes fall {
+  0% {
+      top: -10px;
+      opacity: 1;
+  }
+  100% {
+      top: 100vh;
+      opacity: 0;
+  }
 }
 
 body {
@@ -20,42 +49,10 @@ body {
   transition: background 0.4s, color 0.4s;
 }
 
-/* the falling animations*/
-.content {
-    text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #ff69b4;
-    z-index: 10;
-}
-
-h1 {
-    font-size: 4rem;
-}
-
-p {
-    font-size: 1.5rem;
-}
-
-.confetti {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background-color: #ff69b4;
-    animation: fall 3s infinite;
-}
-
-@keyframes fall {
-    0% {
-        top: -10px;
-        opacity: 1;
-    }
-    100% {
-        top: 100vh;
-        opacity: 0;
-    }
+body.dark-mode {
+  height: 100vh;
+  background: white;
+  color: #000000;
 }
 
 .container {
@@ -73,12 +70,16 @@ h1 {
   margin-bottom: 10px;
 }
 
-p {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
+#homepage p {
+  display: none;
 }
 
-/* first page button "click me"*/
+body.dark-mode .container {
+  background: none;
+  border: none;
+  box-shadow:none;
+}
+
 button {
   appearance: none;
   background-color: transparent;
@@ -106,6 +107,38 @@ button {
   will-change: transform;
 }
 
+body.dark-mode button {
+  all: unset;
+  flex-shrink: 0;
+  flex-grow: 0;
+  flex-basis: calc(25% - .5rem);
+  background-color: rgb(0, 0, 0);
+  box-shadow: inset 0 0 0 1px #000, inset 0 0 0 3px #fff;
+  user-select: none;
+  cursor: url(/img/cursor/cursor.png), auto;
+  padding: 10px;
+  margin: 5px;
+  color: white;
+}
+
+body.dark-mode #homepage button {
+  all: unset;
+  flex-shrink: 0;
+  flex-grow: 0;
+  flex-basis: calc(25% - .5rem);
+  background-color: rgb(0, 0, 0);
+  box-shadow: inset 0 0 0 1px #000, inset 0 0 0 3px #fff;
+  user-select: none;
+  cursor: url(/img/cursor/cursor.png), auto;
+  padding: 10px;
+  margin: 5px;
+  color: white;
+  position: fixed;
+  bottom: -50px; /* Adjust this value to move it further down */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 button:hover {
   color: #fff;
   background-color: #D9AFD9;
@@ -114,31 +147,41 @@ button:hover {
   transform: translateY(-2px);
 }
 
+body.dark-mode button:hover {
+  background-color: black;
+  background-image: none;
+  flex-shrink: 0;
+  flex-grow: 0;
+  flex-basis: calc(25% - .5rem);
+  box-shadow: inset 0 0 0 1px #000, inset 0 0 0 3px #fff;
+  user-select: none;
+  cursor: url(/img/cursor/cursor.png), auto;
+  padding: 10px;
+  margin: 5px;
+}
+
 button:active {
   box-shadow: none;
   transform: translateY(0);
 }
 
-/* Dark Mode */
-body.dark-mode {
-  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-  color: #efefef;
+.landing-video__wrapper {
+  display: none; 
 }
 
-body.dark-mode .container {
-  background: rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+body.dark-mode .landing-video__wrapper {
+  display: flex; /* Show the video in dark mode */
+  min-height: 0px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px; /* Adjust as needed */
 }
 
-body.dark-mode button {
-  border-color: #efefef;
-  color: #efefef;
-}
-
-body.dark-mode button:hover {
-  background-color: #efefef;
-  background-image: none;
-  color: #1a1a1a;
+.landing-video {
+  max-height: 270px;
+  width: 100%;
+  max-width: 400px;
+  object-fit: contain;
 }
 
 /* Night Mode Toggle */
@@ -457,11 +500,11 @@ body.dark-mode button:hover {
 #selection-page h2 {
   font-size: 2rem;
   margin-bottom: 20px;
-  color: #333;
+  color: #000000;
 }
 
 body.dark-mode #selection-page h2 {
-  color: white !important;
+  color: rgb(0, 0, 0);
 }
 
 .checkbox-container {
@@ -475,6 +518,12 @@ body.dark-mode #selection-page h2 {
     0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -2px rgba(0, 0, 0, 0.05);
 }
+
+body.dark-mode .checkbox-container {
+  background: #ffffff;
+  box-shadow:none;
+}
+
 
 .ios-checkbox {
   --checkbox-size: 28px;
@@ -523,9 +572,8 @@ body.dark-mode #selection-page h2 {
   transition: all 0.2s ease;
 }
 
-body.dark-mode #selection-page h2,
 body.dark-mode .ios-checkbox span {
-  color: rgb(0, 0, 0); /* White text for dark mode */
+  color: rgb(0, 0, 0); 
 }
 
 .check-path {
@@ -571,7 +619,11 @@ body.dark-mode .ios-checkbox span {
   --checkbox-border: #93c5fd;
 }
 
-#proceed-button {
+#selection-page button {
+  transition: transform 0.5s ease;
+  position: relative;
+  z-index: 1; /* Ensure button stays above checkboxes */
+  transition: transform 0.s ease; 
   margin-top: 20px;
   padding: 12px 24px;
   background-color: #000000;
@@ -583,27 +635,22 @@ body.dark-mode .ios-checkbox span {
   font-weight: 600;
   transition: background-color 0.3s ease;
 }
-body.dark-mode #proceed-button {
+
+body.dark-mode #selection-page button {
   background-color: #ffffff;
   color: rgb(0, 0, 0);
 }
 
 
-#proceed-button:hover {
+#selection-page button:hover {
   background-color: #ffffff;
   background-image: none;
   color: rgb(0, 0, 0);
 }
 
-body.dark-mode #proceed-button:hover {
+body.dark-mode #selection-page button:hover {
   background-color: #000000;
   color: rgb(255, 255, 255);
-}
-
-
- /* Smooth transition for button movement */
-#proceed-button {
-  transition: transform 0.5s ease; /* Smooth animation */
 }
 
 /* Confirmation Button */
@@ -625,13 +672,6 @@ body.dark-mode #proceed-button:hover {
   background-image: none;
 }
 
-/* Button Movement Boundaries */
-#proceed-button {
-  transition: transform 0.5s ease;
-  position: relative;
-  z-index: 1; /* Ensure button stays above checkboxes */
-}
-
 /* Confirmation Page Styles */
 #confirmation-page {
   text-align: center;
@@ -645,7 +685,7 @@ body.dark-mode #proceed-button:hover {
 }
 
 body.dark-mode #confirmation-page h2 {
-  color: white !important;
+  color: rgb(0, 0, 0) !important;
 }
 
 #confirmation-page button {
@@ -728,7 +768,7 @@ body.dark-mode #confirmation-page h2 {
 }
 
 body.dark-mode .lbl {
-  color: white; 
+  color: rgb(0, 0, 0); 
 }
 
 /* Radio button styles */
@@ -797,7 +837,7 @@ input[type="radio"]:checked ~ .cbx:after {
   background-image: none;
 }
 
-.message-box {
+.alert-box {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -814,12 +854,12 @@ input[type="radio"]:checked ~ .cbx:after {
   width: 100%;
 }
 
-.message-box p {
+.alert-box p {
   font-size: 1.2rem;
   margin-bottom: 20px;
 }
 
-.message-box button {
+.alert-box button {
   background-image: none;
   margin: 10px;
   padding: 10px 20px;
@@ -831,23 +871,22 @@ input[type="radio"]:checked ~ .cbx:after {
   transition: background-color 0.3s ease;
 }
 
-.message-box button:hover {
+.alert-box button:hover {
   opacity: 0.9;
 }
 
-body.dark-mode .message-box {
+body.dark-mode .alert-box {
   color: #000000;
 }
 
-body.dark-mode .message-box button {
+body.dark-mode .alert-box button {
   background-image: none;
   color: rgb(0, 0, 0); 
 }
 
-body.dark-mode .message-box button:hover {
+body.dark-mode .alert-box button:hover {
   opacity: 0.8; 
 }
-
 .container2 {
   position: fixed;
   top: 50%;
@@ -863,10 +902,6 @@ body.dark-mode .message-box button:hover {
   z-index: 1000;
   max-width: 400px;
   width: 100%;
-}
-
-body.dark-mode #congratsPage .container2 h2 {
-  color: black !important;
 }
 
 .container2 p {
@@ -890,6 +925,10 @@ body.dark-mode #congratsPage .container2 h2 {
   opacity: 0.9;
 }
 
+body.dark-mode #congratsPage .container2 h2 {
+  color: black !important;
+}
+
 body.dark-mode .container2 {
   color: #000000;
 }
@@ -904,6 +943,7 @@ body.dark-mode .container2 button:hover {
 }
 
 #yayy-button {
+  all: unset;
   background-color: #10b981;
   color: white;
   width: 200px;
@@ -922,7 +962,7 @@ body.dark-mode .container2 button:hover {
   background-image: none;
 }
 
-.floating-message {
+.doNothing {
   position: fixed;
   top: 40%;
   left: 50%;
@@ -942,7 +982,7 @@ body.dark-mode .container2 button:hover {
 }
 
 
-.floating-message p {
+.doNothing p {
   margin: 0;
   font-size: 20px;
   color: #000000;
@@ -950,7 +990,7 @@ body.dark-mode .container2 button:hover {
   line-height: 1.5;
 }
 
-.floating-message button {
+.doNothing button {
   background: rgba(255, 255, 255, 0.05);
   border: none;
   border-radius: 8px;
@@ -968,7 +1008,8 @@ body.dark-mode .container2 button:hover {
 }
 
 /* Enable pointer events for the message box */
-.message-box {
+.alert-box
+ {
   pointer-events: auto; /* Ensure the message box is clickable */
 }
 
