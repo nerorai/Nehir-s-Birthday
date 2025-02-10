@@ -29,6 +29,7 @@ window.addEventListener('load', () => {
 });
 
 // Get elements
+const homepage = document.getElementById('homepage');
 const clickMeButton = document.querySelector('button');
 const selectionPage = document.getElementById('selection-page');
 const proceedButton = document.getElementById('proceed-button');
@@ -52,12 +53,27 @@ const floatingMessage = document.getElementById("floatingMessage");
 const continueButton = document.getElementById("continue-button");
 const doNothingButton = document.getElementById("do-nothing-button");
 const yayyButton = document.getElementById("yayy-button");
-
+const doorButton = document.getElementById("door-button");
 
 
 let clickCount = 0;
 
 // Show the selection page when "Click Me" is clicked
+doorButton.addEventListener('click', () => {
+  const whitedoorm = document.getElementById("whitedoorm");
+  const doortext = document.getElementById("door-text");
+
+  createPopupMessage("<span id='popup-text'></span>", [
+    { id: "okay-button", text: "OPEN THE DOOR", action: () => {
+    }}
+  ]);
+  setTimeout(() => {
+    const textElement = document.getElementById('popup-text');
+    typeText(textElement, "A white door casts faint shadow \nWhat would you like to do?", 40);
+}, 100);  
+  return true;
+});
+
 clickMeButton.addEventListener('click', () => {
   document.querySelector('.container').classList.add('hidden'); // Hide homepage
   selectionPage.classList.remove('hidden'); // Show selection page
@@ -69,7 +85,6 @@ userRadios.forEach(radio => {
     if (radio.value === 'Nehir') {
       proceedButton.textContent = 'Click here, four eyes';
 
-      // 🛠 RESET the confirmation steps
       q1.classList.add('hidden');
       q2.classList.add('hidden');
       q3.classList.add('hidden');
@@ -103,11 +118,13 @@ proceedButton.addEventListener('click', () => {
 
 // Show confirmation page when Nehir is chosen
 proceedButton.addEventListener('click', () => {
+  
   const selectedUser = document.querySelector('input[name="user"]:checked');
   if (selectedUser && selectedUser.value === 'Nehir' && clickCount === 3) {
     selectionPage.classList.add('hidden');
     confirmationPage.classList.remove('hidden');
     q1.classList.remove('hidden');
+    
   }
 });
 
@@ -437,7 +454,6 @@ doNothingButton.addEventListener("click", () => {
 
   floatingMessage.classList.remove("hidden");
 
-  // Clear the text before starting the typing effect
   floatingText.innerHTML = "";
 
   // Call the existing typeText function

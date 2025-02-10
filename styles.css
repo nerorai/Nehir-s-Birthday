@@ -47,15 +47,17 @@ body {
   background: linear-gradient(135deg, #B2FFFF, #FFC0CB);
   color: black;
   transition: background 0.4s, color 0.4s;
+  z-index: 200;
 }
 
 body.dark-mode {
-  height: 100vh;
+  height: 60vh;
   background: white;
   color: #000000;
 }
 
 .container {
+  display: block;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border-radius: 15px;
@@ -70,7 +72,12 @@ h1 {
   margin-bottom: 10px;
 }
 
-#homepage p {
+p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+body.dark-mode #homepage p {
   display: none;
 }
 
@@ -122,21 +129,9 @@ body.dark-mode button {
 }
 
 body.dark-mode #homepage button {
-  all: unset;
-  flex-shrink: 0;
-  flex-grow: 0;
-  flex-basis: calc(25% - .5rem);
-  background-color: rgb(0, 0, 0);
-  box-shadow: inset 0 0 0 1px #000, inset 0 0 0 3px #fff;
-  user-select: none;
   cursor: url(/img/cursor/cursor.png), auto;
-  padding: 10px;
-  margin: 5px;
-  color: white;
-  position: fixed;
-  bottom: -50px; /* Adjust this value to move it further down */
-  left: 50%;
-  transform: translateX(-50%);
+  display: none;
+
 }
 
 button:hover {
@@ -170,11 +165,14 @@ button:active {
 }
 
 body.dark-mode .landing-video__wrapper {
+  position: relative;
   display: flex; /* Show the video in dark mode */
   min-height: 0px;
   justify-content: center;
   align-items: center;
-  margin-top: 10px; /* Adjust as needed */
+  margin-top: -250px; /* Adjust as needed */
+  z-index: 1;
+
 }
 
 .landing-video {
@@ -183,6 +181,63 @@ body.dark-mode .landing-video__wrapper {
   max-width: 400px;
   object-fit: contain;
 }
+
+.gif1, .gif2, .gif3 {
+  display: none; 
+}
+body.dark-mode .gif1 {
+  display: flex;
+  position: absolute; top: -580px; right: -250px; z-index: 10;
+}
+body.dark-mode .gif2 {
+  display: flex;
+  position: absolute; top: -100px; right: 160px; z-index: 10;
+}
+body.dark-mode .gif3 {
+  display: flex;
+  position: relative; top: 50%; 
+}
+
+body.dark-mode .alert-box {
+  all: unset;
+  position:absolute; top: 66%; 
+  background-color: rgb(0, 0, 0);
+  padding: 10px;
+  margin: 5px;
+  width: 550px;
+  height: 100px;
+  color: white;
+  line-height: 1rem;
+  box-shadow: inset 0 0 0 1px #000,inset 0 0 0 3px #fff; 
+  z-index: 1000;
+  white-space: pre-line;
+}
+
+body.dark-mode .alert-box div {
+  position: absolute;
+  top: -45px; /* Move above the alert box */
+  right: -0px; /* Align to the right */
+  width: auto;
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  gap: auto; /* Add some space between buttons */
+}
+
+body.dark-mode .alert-box div button:nth-child(2) {
+  position: relative;
+  top: -90px; /* Moves only the second button up */
+}
+
+
+body.dark-mode .alert-box p, body.dark-mode .alert-box span {
+  padding-left: 30px;
+  text-align: left;
+  margin: 0;
+  font-size: 20px;
+  color: #ffffff;
+  line-height: 1.5;
+}
+
 
 /* Night Mode Toggle */
 .theme-toggle {
@@ -724,6 +779,10 @@ body.dark-mode #confirmation-page h2 {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+body.dark-mode #final-selection {
+  height: 180px;
+}
+
 #final-selection .checkbox-container.vertical {
   background: none;
   display: flex;
@@ -879,10 +938,6 @@ body.dark-mode .alert-box {
   color: #000000;
 }
 
-body.dark-mode .alert-box button {
-  background-image: none;
-  color: rgb(0, 0, 0); 
-}
 
 body.dark-mode .alert-box button:hover {
   opacity: 0.8; 
@@ -1008,8 +1063,7 @@ body.dark-mode .container2 button:hover {
 }
 
 /* Enable pointer events for the message box */
-.alert-box
- {
+.alert-box {
   pointer-events: auto; /* Ensure the message box is clickable */
 }
 
@@ -1022,3 +1076,5 @@ body.dark-mode .container2 button:hover {
   0% { opacity: 1; }
   100% { opacity: 0; }
 }
+
+
