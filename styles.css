@@ -44,10 +44,15 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #B2FFFF, #FFC0CB);
   color: black;
   transition: background 0.4s, color 0.4s;
   z-index: 200;
+  background: linear-gradient(135deg, #B2FFFF, #FFC0CB);
+  background-repeat: no-repeat;
+  background-size: 1000px, 500px;
+  background-attachment:fixed;
+  background-size: cover;
+  background-position: center; 
 }
 
 body.dark-mode {
@@ -187,16 +192,52 @@ body.dark-mode .landing-video__wrapper {
 }
 body.dark-mode .gif1 {
   display: flex;
-  position: absolute; top: -580px; right: -250px; z-index: 10;
+  position: absolute; top: -200%; right: -250px; z-index: 10;
 }
 body.dark-mode .gif2 {
   display: flex;
-  position: absolute; top: -100px; right: 160px; z-index: 10;
+  position: absolute; top: -30%; right: 30%; z-index: 10;
 }
 body.dark-mode .gif3 {
   display: flex;
   position: relative; top: 50%; 
 }
+
+@media (min-width: 400px) {
+  body {
+    transform: scale(0.8);
+    transform-origin: top left;
+    width: 142%;
+  }
+  body.dark-mode .alert-box {
+    top: 105% !important;
+  }
+  .theme-toggle {
+    top: 10% !important;
+  }  
+}
+
+@media (min-width: 767px) {
+  body {
+    background-size: cover !important;
+    transform: scale(0.8);
+    transform-origin: top left;
+    width: 132%;
+  }
+
+  .theme-toggle {
+    top: 10% !important; right: 13% !important;
+  }
+
+  body.dark-mode .alert-box {
+    top: 150% !important;
+  }
+  
+  body.dark-mode .container2 {
+    top: 90%;
+  }
+}
+
 
 body.dark-mode .alert-box {
   all: unset;
@@ -242,8 +283,13 @@ body.dark-mode .alert-box p, body.dark-mode .alert-box span {
 /* Night Mode Toggle */
 .theme-toggle {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 20%;
+  right: 10%;
+  z-index: 9;
+}
+
+body.dark-mode .theme-toggle {
+  top: 10%;
 }
 
 .switch {
