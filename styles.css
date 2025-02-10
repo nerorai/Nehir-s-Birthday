@@ -203,7 +203,7 @@ body.dark-mode .gif3 {
   position: relative; top: 50%; 
 }
 
-@media (min-width: 400px) {
+@media (min-width: 360px) {
   body {
     transform: scale(0.8);
     transform-origin: top left;
