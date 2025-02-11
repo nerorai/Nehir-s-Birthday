@@ -93,10 +93,10 @@ body {
 }
 
 @media only screen 
-and (min-device-width : 800px) 
-and (max-device-width : 850px) {
+and (min-device-width : 720px) 
+and (max-device-width : 1024px) {
   .gif1 {
-    top: calc(5vh + -190px) !important;
+    top: calc(5vh + -170px) !important;
   }
 
 }
@@ -184,7 +184,7 @@ gap: 10px;
 display: absolute;
 margin-left: auto;
 margin-right: auto;
-position: absolute; 
+position: fixed;
 width: 5%;
 right: 38%;
 top: -43%;
