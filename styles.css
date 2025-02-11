@@ -6,7 +6,7 @@
 
 @font-face {
   font-family: "Omori";
-  src: url("fonts/OMORI_GAME2.ttf") format("truetype");
+  src: url("font/OMORI_GAME2.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
