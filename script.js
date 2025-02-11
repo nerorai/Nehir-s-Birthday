@@ -114,8 +114,17 @@ function createPopupMessage(message, buttons, speed = 50) {
     function type() {
         if (i < message.length) {
             textElement.textContent += message.charAt(i);
+
+            // Check if the current character is a pause character
+            if (message.charAt(i) === ',' || message.charAt(i) === '.' || message.charAt(i) === '!' || message.charAt(i) === '?') {
+                // Pause for 2-3 seconds before continuing
+                setTimeout(type, 2000); // 2000ms = 2 seconds
+            } else {
+                // Continue typing at normal speed
+                setTimeout(type, speed);
+            }
+
             i++;
-            setTimeout(type, speed);
         } else {
             stopTypingSound();
         }
@@ -128,12 +137,8 @@ function createPopupMessage(message, buttons, speed = 50) {
         btnElement.addEventListener('click', () => {
             stopTypingSound();
             button.action();
-            document.body.classList.remove('disable-interaction'); // Re-enable interactions
-            popup.remove(); 
-
-            if (button.action.toString().includes("createPopupMessage")) {
-                document.body.classList.add('disable-interaction');
-            }
+            document.body.classList.remove('disable-interaction');
+            popup.remove();
         });
     });
 }
@@ -176,22 +181,64 @@ userRadios.forEach(radio => {
   });
 
 let clickCount = 0;
+let speechBubble = null;
+let animationFrameId = null; 
+
 proceedButton.addEventListener('click', () => {
     const selectedUser = document.querySelector('input[name="user"]:checked');
     if (selectedUser.value === 'Nehir') {
         clickCount++;
-    
-        if (clickCount === 1 || clickCount === 2) {
-          const moveX = (Math.random() * 500 - 250); 
-          const moveY = (Math.random() * 500 - 250); 
-          proceedButton.style.transition = 'transform 0.5s ease'; 
-          proceedButton.style.transform = `translate(${moveX}px, ${moveY}px)`;
+
+        if (clickCount === 1 || clickCount === 2 || clickCount === 3) {
+            const moveX = (Math.random() * 500 - 250);
+            const moveY = (Math.random() * 500 - 250);
+            proceedButton.style.transition = 'transform 0.5s ease';
+            proceedButton.style.transform = `translate(${moveX}px, ${moveY}px)`;
+
+            if (speechBubble) {
+                speechBubble.remove();
+                speechBubble = null;
+                cancelAnimationFrame(animationFrameId); 
+            }
+            if (clickCount === 2) {
+                speechBubble = document.createElement('div');
+                speechBubble.classList.add('speech-bubble');
+                speechBubble.textContent = "Stop chasing me! Just click me properly!";
+                document.body.appendChild(speechBubble);
+                const updateBubblePosition = () => {
+                    if (speechBubble) {
+                        const buttonRect = proceedButton.getBoundingClientRect();
+                        speechBubble.style.top = `${buttonRect.top - 1}px`;
+                        speechBubble.style.left = `${buttonRect.left + buttonRect.width / 2}px`;
+                    }
+                    animationFrameId = requestAnimationFrame(updateBubblePosition); 
+                };
+                updateBubblePosition();
+                setTimeout(() => {
+                    if (speechBubble) {
+                        speechBubble.remove();
+                        speechBubble = null;
+                        cancelAnimationFrame(animationFrameId);
+                    }
+                }, 10000);
+            }
+            if (clickCount === 3) {
+                createPopupMessage("Nehir.., do you have your glasses on?", [
+                    { id: "J7", text: "NO", action: () => {
+                        doorButton.classList.add('hidden')
+                        switchPage(homepage, selection1);
+                    }},
+                    { id: "J8", text: "NOPE", action: () => {} }
+                  ], 40);
+            }
         }
-      } 
-    if (selectedUser && selectedUser.value === 'Nehir' && clickCount === 3) {
+    }
+    if (selectedUser && selectedUser.value === 'Nehir' && clickCount === 4) {
         switchPage(selection1, questions);
     }
 });
+
+
 
 yesQ1.addEventListener('click', () => {
     switchPage(Q1, Q2);
