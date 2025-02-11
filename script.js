@@ -128,8 +128,12 @@ function createPopupMessage(message, buttons, speed = 50) {
         btnElement.addEventListener('click', () => {
             stopTypingSound();
             button.action();
-            document.body.classList.remove('disable-interaction');
-            popup.remove();
+            document.body.classList.remove('disable-interaction'); // Re-enable interactions
+            popup.remove(); 
+
+            if (button.action.toString().includes("createPopupMessage")) {
+                document.body.classList.add('disable-interaction');
+            }
         });
     });
 }
@@ -151,6 +155,7 @@ function switchPage(currentPage, nextPage) {
 doorButton.addEventListener('click', () => {
     createPopupMessage("A white door casts a faint shadow. \nWhat would you like to do?", [
     { id: "J1", text: "OPEN THE DOOR", action: () => {
+        doorButton.classList.add('hidden')
         switchPage(homepage, selection1);
     }},
     { id: "J2", text: "DO NOTHING", action: () => {} }
