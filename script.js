@@ -84,7 +84,7 @@ function stopTypingSound() {
 
 initAudio();
 
-function createPopupMessage(message, buttons, speed = 50) {
+function createPopupMessage(message, buttons, speed = 50, pausePositions = []) {
     document.body.classList.add('disable-interaction');
 
     if (audioContext.state === 'suspended') {
@@ -104,29 +104,42 @@ function createPopupMessage(message, buttons, speed = 50) {
     const textElement = popup.querySelector('#popup-text');
     let i = 0;
 
-    stopTypingSound();
-    typingSoundSource = audioContext.createBufferSource();
-    typingSoundSource.buffer = typingSoundBuffer;
-    typingSoundSource.loop = true;
-    typingSoundSource.connect(audioContext.destination);
-    typingSoundSource.start();
+    // Initialize sound
+    let typingSoundSource;
+    function startSound() {
+        typingSoundSource = audioContext.createBufferSource();
+        typingSoundSource.buffer = typingSoundBuffer;
+        typingSoundSource.loop = true;
+        typingSoundSource.connect(audioContext.destination);
+        typingSoundSource.start();
+    }
+
+    function stopSound() {
+        if (typingSoundSource) {
+            typingSoundSource.stop();
+            typingSoundSource.disconnect();
+        }
+    }
+
+    startSound(); // Start sound initially
 
     function type() {
         if (i < message.length) {
             textElement.textContent += message.charAt(i);
 
-            // Check if the current character is a pause character
-            if (message.charAt(i) === ',' || message.charAt(i) === '.' || message.charAt(i) === '!' || message.charAt(i) === '?') {
-                // Pause for 2-3 seconds before continuing
-                setTimeout(type, 2000); // 2000ms = 2 seconds
+            if (pausePositions.includes(i + 1)) { // Pause at specific positions
+                stopSound(); // Stop sound during pause
+                setTimeout(() => {
+                    startSound(); // Restart sound after pause
+                    type();
+                }, 2000); // 2-second pause
             } else {
-                // Continue typing at normal speed
-                setTimeout(type, speed);
+                setTimeout(type, speed); // Normal speed
             }
 
             i++;
         } else {
-            stopTypingSound();
+            stopSound(); // Stop sound when done
         }
     }
 
@@ -135,7 +148,7 @@ function createPopupMessage(message, buttons, speed = 50) {
     buttons.forEach(button => {
         const btnElement = popup.querySelector(`#${button.id}`);
         btnElement.addEventListener('click', () => {
-            stopTypingSound();
+            stopSound();
             button.action();
             document.body.classList.remove('disable-interaction');
             popup.remove();
@@ -203,7 +216,7 @@ proceedButton.addEventListener('click', () => {
             if (clickCount === 2) {
                 speechBubble = document.createElement('div');
                 speechBubble.classList.add('speech-bubble');
-                speechBubble.textContent = "Stop chasing me! Just click me properly!";
+                speechBubble.textContent = "Stop CHasiNg ME!!";
                 document.body.appendChild(speechBubble);
                 const updateBubblePosition = () => {
                     if (speechBubble) {
@@ -225,11 +238,18 @@ proceedButton.addEventListener('click', () => {
             if (clickCount === 3) {
                 createPopupMessage("Nehir.., do you have your glasses on?", [
                     { id: "J7", text: "NO", action: () => {
-                        doorButton.classList.add('hidden')
-                        switchPage(homepage, selection1);
+                        createPopupMessage("... ......", [
+                            { id: "J4", text: "...", action: () => {    
+                            }}
+                        ], 40, [3]);
                     }},
-                    { id: "J8", text: "NOPE", action: () => {} }
-                  ], 40);
+                    { id: "J8", text: "NOPE", action: () => {
+                        createPopupMessage("... ......", [
+                            { id: "J4", text: "...", action: () => {    
+                            }}
+                        ], 40, [3]);
+                    } }
+                  ], 60, [7]);
             }
         }
     }
