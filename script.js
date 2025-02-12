@@ -18,6 +18,9 @@ setInterval(createConfetti, 350);
 
 const userRadios         = document.querySelectorAll('input[name="user"]');
 const homepage           = document.getElementById('HomePage');
+const doorButton         = document.getElementById("door-button");
+const whitedoor          = document.getElementById("Whitedoor");
+const pic                = document.getElementById("pic");
 const selection1         = document.getElementById('Selection-1');
 const proceedButton      = document.getElementById('B-2');
 const questions          = document.getElementById('Questions');
@@ -33,15 +36,12 @@ const yesQ33             = document.getElementById('B-8');
 const finalSelection     = document.getElementById('Selection-2');
 const cbx5               = document.getElementById('cbx5');
 const confirmFinalButton = document.getElementById('B-9');
-const congratsPage       = document.getElementById("congratsPage");
-const securityBox        = document.getElementById("securityBox");
-const continueButton     = document.getElementById("continue-button");
-const doNothingButton    = document.getElementById("do-nothing-button");
-const yayyButton         = document.getElementById("yayy-button");
-const doorButton         = document.getElementById("door-button");
-const whitedoortext      = document.getElementById("text-1");
-const whitedoor          = document.getElementById("Whitedoor");
-const pic                = document.getElementById("pic");
+const congratsPage       = document.getElementById("CongratsPage");
+const yayyButton         = document.getElementById("B-10");
+const securityBox        = document.getElementById("SecurityBox");
+const continueButton     = document.getElementById("B-11");
+const doNothingButton    = document.getElementById("B-12");
+
 
 let audioContext;
 let typingSoundBuffer;
@@ -80,8 +80,9 @@ function stopTypingSound() {
 
 initAudio();
 
-let openPopups = 0; 
-function createPopupMessage(message, buttons, speed = 50) {
+let openPopups = 0;
+
+function createPopupMessage(message, buttons, speed, pauseAtChar, pauseDuration) {
     openPopups++;
     if (openPopups === 1) {
         document.body.classList.add('disable-interaction');
@@ -104,6 +105,11 @@ function createPopupMessage(message, buttons, speed = 50) {
     const textElement = popup.querySelector('#popup-text');
     let i = 0;
 
+    popup.querySelectorAll('button').forEach(button => {
+        button.style.opacity = '0';
+        button.style.transition = 'opacity 0.5s ease-in-out';
+    });
+
     stopTypingSound();
     typingSoundSource = audioContext.createBufferSource();
     typingSoundSource.buffer = typingSoundBuffer;
@@ -115,9 +121,21 @@ function createPopupMessage(message, buttons, speed = 50) {
         if (i < message.length) {
             textElement.textContent += message.charAt(i);
             i++;
-            setTimeout(type, speed);
+            
+            if (i === pauseAtChar) {
+                stopTypingSound();
+                setTimeout(() => {
+                    playTypingSound(); // Restart sound after pause
+                    type(); // Resume typing
+                }, pauseDuration);
+            } else {
+                setTimeout(type, speed);
+            }
         } else {
             stopTypingSound();
+            popup.querySelectorAll('button').forEach(button => {
+                button.style.opacity = '1';
+            });
         }
     }
 
@@ -130,7 +148,6 @@ function createPopupMessage(message, buttons, speed = 50) {
             popup.remove();
             openPopups--;
 
-            // Only re-enable interactions when all popups are closed
             if (openPopups === 0) {
                 document.body.classList.remove('disable-interaction');
             }
@@ -141,6 +158,7 @@ function createPopupMessage(message, buttons, speed = 50) {
         });
     });
 }
+
 document.addEventListener('click', initAudio, { once: true });
 
 function switchPage(currentPage, nextPage) {
@@ -189,8 +207,8 @@ proceedButton.addEventListener('click', () => {
         clickCount++;
 
         if (clickCount === 1 || clickCount === 2 || clickCount === 3) {
-            const moveX = (Math.random() * 500 - 250);
-            const moveY = (Math.random() * 500 - 250);
+            const moveX = (Math.random() * 350 - 250);
+            const moveY = (Math.random() * 350 - 250);
             proceedButton.style.transition = 'transform 0.5s ease';
             proceedButton.style.transform = `translate(${moveX}px, ${moveY}px)`;
 
@@ -222,20 +240,20 @@ proceedButton.addEventListener('click', () => {
                 }, 10000);
             }
             if (clickCount === 3) {
-                createPopupMessage("Nehir.., do you have your glasses on?", [
+                createPopupMessage("Nehir.. do you have your glasses on?", [
                     { id: "J7", text: "NO", action: () => {
-                        createPopupMessage("... ......", [
-                            { id: "J4", text: "...", action: () => {    
+                        createPopupMessage("... ...Just click the button.", [
+                            { id: "J4", text: "Continue", action: () => {    
                             }}
-                        ], 40, [3]);
+                        ], 40, 3, 2000);
                     }},
                     { id: "J8", text: "NOPE", action: () => {
-                        createPopupMessage("... ......", [
-                            { id: "J4", text: "...", action: () => {    
+                        createPopupMessage("... ...Just click the button.", [
+                            { id: "J4", text: "Continue", action: () => {    
                             }}
-                        ], 40, [3]);
+                        ], 40, 3, 2000);
                     } }
-                  ], 60, [7]);
+                  ], 60, 7, 2000);
             }
         }
     }
@@ -282,8 +300,71 @@ noQ2.addEventListener('click', () => {
                     clickCount = 0;
                     proceedButton.textContent = 'Proceed';              
                 }}
-            ], 40); // Speed
+            ], 40);
         }}
-    ], 40); // Speed
+    ], 40); 
  });
 
+yesQ3.addEventListener('click', () => {
+    createPopupMessage("I'm still not sure you're Nehir.", [
+        { id: "J6", text: "Continue", action: () => {           
+        }}
+    ], 40);
+    switchPage(Q3, finalSelection);
+});
+
+yesQ33.addEventListener('click', () => {
+    createPopupMessage("I'm still not sure you're Nehir.", [
+        { id: "J6", text: "Continue", action: () => {           
+        }}
+    ], 40);
+    switchPage(Q3, finalSelection);
+});
+
+
+let wrongAttempts = 0;
+
+confirmFinalButton.addEventListener('click', () => {
+    const selectedChoice = document.querySelector('input[name="final-choice"]:checked');
+    
+    if (!selectedChoice) {
+        createPopupMessage("You need to select something first!", [
+            { id: "J20", text: "Okay", action: () => {} }
+        ], 40);
+        return;
+    }
+
+    if (selectedChoice.id !== 'cbx5') {
+        wrongAttempts++;
+
+        switch(selectedChoice.id) {
+            case 'cbx2':
+                createPopupMessage("What Ronaldo?", [ { id: "J16", text: "Continue", action: () => { }}], 40);
+                break;
+            case 'cbx4':
+                createPopupMessage("Nani?\nThat's Japanese for 'what?'... which is what I'm saying!?", [ { id: "J17", text: "Continue", action: () => {}}], 40);
+                break;
+            case 'cbx1':
+                createPopupMessage("Arigato means thanks...\nbut no thanks for wrong answers.", [ { id: "J18", text: "Continue", action: () => { }}], 40);
+                break;
+            case 'cbx3':
+                createPopupMessage("Please don't try again. We have an unbreakable security system.", [ { id: "J19", text: "Continue", action: () => { }}], 40);
+                break;
+        }
+
+        if (wrongAttempts == 3) {
+            createPopupMessage("What are you trying to do?\n The real Nehir would have known from the first glance.", [
+                { id: "J13", text: "Continue", action: () => {
+                    createPopupMessage("Is that you, Nehir?", [
+                        { id: "J14", text: "YES.", action: () => {
+                        }},
+                        { id: "J15", text: "Of-Course I'm N-Nehir.", action: () => {
+                        }}
+                    ], 40);
+                    return;
+                }}
+            ], 40, 26, 1500);
+            return;
+        } 
+    }
+});
