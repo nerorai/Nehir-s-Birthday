@@ -5,47 +5,43 @@ document.addEventListener("DOMContentLoaded", function () {
 const numConfetti = window.innerWidth < 600 ? 30 : 50; // Reduce confetti on small screens
 
 function createConfetti() {
-    for (let i = 0; i < numConfetti; i++) {
-        const confetti = document.createElement('div');
-        confetti.classList.add('confetti');
-        confetti.style.left = `${Math.random() * window.innerWidth}px`;
-        confetti.style.animationDelay = `${Math.random() * 2}s`;
-        confetti.style.animationDuration = `${Math.random() * 2 + 2}s`;
-        document.body.appendChild(confetti);
-        confetti.addEventListener("animationend", () => {
-            confetti.remove();
-        });
-    }
+    const confetti = document.createElement('div');
+    confetti.classList.add('confetti');
+    confetti.style.left = Math.random() * 120 + 'vw';
+    confetti.style.top = Math.random() * 10 + 'vh'; 
+    confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+    confetti.style.animationDuration = (Math.random() * 3 + 1) + 's';
+    document.body.appendChild(confetti);
+    setTimeout(() => confetti.remove(), 3000);
 }
-window.onload = createConfetti;
+setInterval(createConfetti, 350);
 
-// Get elements
-const userRadios       = document.querySelectorAll('input[name="user"]');
-const homepage         = document.getElementById('HomePage');
-const selection1       = document.getElementById('Selection-1');
-const proceedButton    = document.getElementById('B-2');
-const questions        = document.getElementById('Questions');
-const Q1               = document.getElementById('Q1');
-const Q2               = document.getElementById('Q2');
-const Q3               = document.getElementById('Q3');
-const yesQ1            = document.getElementById('B-3');
-const noQ1             = document.getElementById('B-4');
-const yesQ2            = document.getElementById('B-5');
-const noQ2             = document.getElementById('B-6');
-const yesQ3            = document.getElementById('B-7');
-const yesQ33           = document.getElementById('B-8');
-const finalSelection   = document.getElementById('Selection-2');
-const cbx5             = document.getElementById('cbx5');
+const userRadios         = document.querySelectorAll('input[name="user"]');
+const homepage           = document.getElementById('HomePage');
+const selection1         = document.getElementById('Selection-1');
+const proceedButton      = document.getElementById('B-2');
+const questions          = document.getElementById('Questions');
+const Q1                 = document.getElementById('Q1');
+const Q2                 = document.getElementById('Q2');
+const Q3                 = document.getElementById('Q3');
+const yesQ1              = document.getElementById('B-3');
+const noQ1               = document.getElementById('B-4');
+const yesQ2              = document.getElementById('B-5');
+const noQ2               = document.getElementById('B-6');
+const yesQ3              = document.getElementById('B-7');
+const yesQ33             = document.getElementById('B-8');
+const finalSelection     = document.getElementById('Selection-2');
+const cbx5               = document.getElementById('cbx5');
 const confirmFinalButton = document.getElementById('B-9');
-const congratsPage = document.getElementById("congratsPage");
-const securityBox = document.getElementById("securityBox");
-const continueButton = document.getElementById("continue-button");
-const doNothingButton = document.getElementById("do-nothing-button");
-const yayyButton = document.getElementById("yayy-button");
-const doorButton = document.getElementById("door-button");
-const whitedoortext = document.getElementById("text-1");
-const whitedoor = document.getElementById("Whitedoor");
-const pic = document.getElementById("pic");
+const congratsPage       = document.getElementById("congratsPage");
+const securityBox        = document.getElementById("securityBox");
+const continueButton     = document.getElementById("continue-button");
+const doNothingButton    = document.getElementById("do-nothing-button");
+const yayyButton         = document.getElementById("yayy-button");
+const doorButton         = document.getElementById("door-button");
+const whitedoortext      = document.getElementById("text-1");
+const whitedoor          = document.getElementById("Whitedoor");
+const pic                = document.getElementById("pic");
 
 let audioContext;
 let typingSoundBuffer;
@@ -61,7 +57,7 @@ function loadAudio() {
 }
 
 function initAudio() {
-    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    audioContext = new (window.AudioContext || window.AudioContext)();
     loadAudio();
 }
 
@@ -84,8 +80,12 @@ function stopTypingSound() {
 
 initAudio();
 
-function createPopupMessage(message, buttons, speed = 50, pausePositions = []) {
-    document.body.classList.add('disable-interaction');
+let openPopups = 0; 
+function createPopupMessage(message, buttons, speed = 50) {
+    openPopups++;
+    if (openPopups === 1) {
+        document.body.classList.add('disable-interaction');
+    }
 
     if (audioContext.state === 'suspended') {
         audioContext.resume();
@@ -104,42 +104,20 @@ function createPopupMessage(message, buttons, speed = 50, pausePositions = []) {
     const textElement = popup.querySelector('#popup-text');
     let i = 0;
 
-    // Initialize sound
-    let typingSoundSource;
-    function startSound() {
-        typingSoundSource = audioContext.createBufferSource();
-        typingSoundSource.buffer = typingSoundBuffer;
-        typingSoundSource.loop = true;
-        typingSoundSource.connect(audioContext.destination);
-        typingSoundSource.start();
-    }
-
-    function stopSound() {
-        if (typingSoundSource) {
-            typingSoundSource.stop();
-            typingSoundSource.disconnect();
-        }
-    }
-
-    startSound(); // Start sound initially
+    stopTypingSound();
+    typingSoundSource = audioContext.createBufferSource();
+    typingSoundSource.buffer = typingSoundBuffer;
+    typingSoundSource.loop = true;
+    typingSoundSource.connect(audioContext.destination);
+    typingSoundSource.start();
 
     function type() {
         if (i < message.length) {
             textElement.textContent += message.charAt(i);
-
-            if (pausePositions.includes(i + 1)) { // Pause at specific positions
-                stopSound(); // Stop sound during pause
-                setTimeout(() => {
-                    startSound(); // Restart sound after pause
-                    type();
-                }, 2000); // 2-second pause
-            } else {
-                setTimeout(type, speed); // Normal speed
-            }
-
             i++;
+            setTimeout(type, speed);
         } else {
-            stopSound(); // Stop sound when done
+            stopTypingSound();
         }
     }
 
@@ -148,10 +126,18 @@ function createPopupMessage(message, buttons, speed = 50, pausePositions = []) {
     buttons.forEach(button => {
         const btnElement = popup.querySelector(`#${button.id}`);
         btnElement.addEventListener('click', () => {
-            stopSound();
-            button.action();
-            document.body.classList.remove('disable-interaction');
+            stopTypingSound();
             popup.remove();
+            openPopups--;
+
+            // Only re-enable interactions when all popups are closed
+            if (openPopups === 0) {
+                document.body.classList.remove('disable-interaction');
+            }
+
+            if (typeof button.action === 'function') {
+                button.action();
+            }
         });
     });
 }
@@ -216,7 +202,7 @@ proceedButton.addEventListener('click', () => {
             if (clickCount === 2) {
                 speechBubble = document.createElement('div');
                 speechBubble.classList.add('speech-bubble');
-                speechBubble.textContent = "Stop CHasiNg ME!!";
+                speechBubble.textContent = ".....!!";
                 document.body.appendChild(speechBubble);
                 const updateBubblePosition = () => {
                     if (speechBubble) {
