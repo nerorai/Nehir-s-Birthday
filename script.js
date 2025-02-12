@@ -334,6 +334,22 @@ confirmFinalButton.addEventListener('click', () => {
         return;
     }
 
+    if (wrongAttempts === 3) {
+        wrongAttempts++;
+        createPopupMessage("What are you trying to do?\n The real Nehir would have known from the first glance.", [
+            { id: "J13", text: "Continue", action: () => {
+                createPopupMessage("Is that you, Nehir?", [
+                    { id: "J14", text: "YES.", action: () => {
+                    }},
+                    { id: "J15", text: "Of-Course I'm N-Nehir.", action: () => {
+                    }}
+                ], 40);
+                return;
+            }}
+        ], 40, 26, 1500);
+        return;
+    } 
+
     if (selectedChoice.id !== 'cbx5') {
         wrongAttempts++;
 
@@ -352,19 +368,5 @@ confirmFinalButton.addEventListener('click', () => {
                 break;
         }
 
-        if (wrongAttempts == 3) {
-            createPopupMessage("What are you trying to do?\n The real Nehir would have known from the first glance.", [
-                { id: "J13", text: "Continue", action: () => {
-                    createPopupMessage("Is that you, Nehir?", [
-                        { id: "J14", text: "YES.", action: () => {
-                        }},
-                        { id: "J15", text: "Of-Course I'm N-Nehir.", action: () => {
-                        }}
-                    ], 40);
-                    return;
-                }}
-            ], 40, 26, 1500);
-            return;
-        } 
     }
 });
