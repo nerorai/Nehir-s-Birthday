@@ -408,7 +408,7 @@ confirmFinalButton.addEventListener("click", () => {
     return;
   }
 
-  if (wrongAttempts === 3) {
+  if (wrongAttempts === 2) {
     wrongAttempts++;
     createPopupMessage(
       "What are you trying to do? The real Nehir would have known from the first glance.",
