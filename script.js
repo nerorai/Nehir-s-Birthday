@@ -17,6 +17,7 @@ function createConfetti() {
 setInterval(createConfetti, 350);
 
 const userRadios         = document.querySelectorAll('input[name="user"]');
+const animatedBackground = document.getElementById("animated-bg")
 const homepage           = document.getElementById('HomePage');
 const doorButton         = document.getElementById("door-button");
 const whitedoor          = document.getElementById("Whitedoor");
@@ -191,6 +192,7 @@ doorButton.addEventListener("click", () => {
         action: () => {
           doorButton.classList.add("hidden");
           switchPage(homepage, selection1);
+          animatedBackground.classList.remove("hidden")
         },
       },
       { id: "J2", text: "DO NOTHING", action: () => {} },

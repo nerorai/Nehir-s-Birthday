@@ -32,7 +32,6 @@ body {
     font-family: "Omori", sans-serif;
     font-size: 120px;
     top: -1vh;
-
   }
 }
 
@@ -91,7 +90,6 @@ body {
 .fade-out {
   animation: fadeOut 0.5s ease-in-out forwards;
 }
-
 
 .speech-bubble {
   position: absolute;
@@ -588,7 +586,7 @@ input[type="radio"]:checked ~ .cbx:after {
   body {
     transform: scale(0.8);
     transform-origin: top left;
-    width: calc(100vw/0.8);
+    width: calc(100vw / 0.8);
     overflow-x: hidden;
   }
   .alert-box {
@@ -597,7 +595,7 @@ input[type="radio"]:checked ~ .cbx:after {
   }
   .alert-box div button:nth-child(2) {
     position: relative;
-    top: -95px ;
+    top: -95px;
   }
   .alert-box p {
     font-size: 26px;
@@ -611,16 +609,43 @@ input[type="radio"]:checked ~ .cbx:after {
   body {
     transform: scale(0.8);
     transform-origin: top left;
-    width: calc(100vw/0.8);
+    width: calc(100vw / 0.8);
     overflow-x: hidden;
+    #Selection-2 {
+      margin: -3px;
+      h2 {
+        padding: 20px;
+      }
+    }
   }
 
   .alert-box {
     width: 70%;
-    top: calc(5vh + 440px);
+    top: calc(5vh + 370px);
   }
   .pic {
     top: calc(5vh + -200px);
   }
 }
 
+#animated-bg {
+  position: fixed;
+  width: 250%;
+  height: 250%;
+  background: linear-gradient(-45deg, #ffffff, #fae9e4, #ffffff, #ffdde1);
+  background-size: 400% 400%;
+  z-index: -1;
+  animation: gradientBG 10s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
