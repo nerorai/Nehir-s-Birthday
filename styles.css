@@ -649,7 +649,7 @@ input[type="radio"]:checked ~ .cbx:after {
     width: calc(100vw / 0.7);
     overflow-x: hidden;
     #Selection-1 {
-     top: 20%;
+     top: 50%;
     }
     #Selection-2 {
       margin: -3px;
@@ -657,11 +657,16 @@ input[type="radio"]:checked ~ .cbx:after {
         padding: 20px;
       }
     }
+    #Questions {
+      h2 {
+        margin-top: 59px;
+      }
+          }
   }
 
   .alert-box {
     width: 50%;
-    top: calc(5vh + 570px);
+    top: calc(5vh + 370px);
   }
   .pic {
     top: calc(5vh + -200px);
@@ -670,8 +675,8 @@ input[type="radio"]:checked ~ .cbx:after {
 
 #animated-bg {
   position: fixed;
-  width: 250%;
-  height: 250%;
+  width: 350%;
+  height: 350%;
   background: linear-gradient(-45deg, #f2a2a2, #f2f2f2, #a2c8f2, #c7a2f2, #f2a2d0);
   background-size: 400% 400%;
   z-index: -1;
