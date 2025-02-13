@@ -548,9 +548,23 @@ input[type="radio"]:checked ~ .cbx:after {
 }
 
 #Selection-1 {
-  height: 0%;
+  position: relative;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s;
+  height: fit-content;
   h2 {
-    padding: 10px;
+    padding-bottom: 30px;
+  }
+  button {
+    right: 34%;
+    position: absolute;
+    display: block;
+    margin-top: 40px;
   }
 }
 
@@ -563,9 +577,17 @@ input[type="radio"]:checked ~ .cbx:after {
 }
 
 #Selection-2 {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s;
+  height: fit-content;
   width: fit-content;
-  margin: -80px;
+  margin: -130px;
   h2 {
+    color: #3D2352;
     padding: 20px;
     font-size: x-large;
   }
@@ -574,6 +596,12 @@ input[type="radio"]:checked ~ .cbx:after {
   backdrop-filter: blur(10px); /* Frosted glass effect */
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+#Selection-1:hover,
+#Selection-2:hover {
+  transform: scale(1.02);
+}
+
 
 #Selection-2 .checkbox-container.vertical {
   display: flex;
@@ -588,6 +616,15 @@ input[type="radio"]:checked ~ .cbx:after {
     transform-origin: top left;
     width: calc(100vw / 0.8);
     overflow-x: hidden;
+    #Selection-1 {
+      top: 30px;
+    }
+    #Selection-2 {
+      margin: 0px;
+      h2 {
+        padding: 20px;
+      }
+    }
   }
   .alert-box {
     width: 98%;
@@ -605,12 +642,15 @@ input[type="radio"]:checked ~ .cbx:after {
   }
 }
 
-@media only screen and (min-device-width: 581px) and (max-device-width: 1180px) {
+@media only screen and (min-device-width: 581px) and (max-device-width: 1000px) {
   body {
-    transform: scale(0.8);
+    transform: scale(0.7);
     transform-origin: top left;
-    width: calc(100vw / 0.8);
+    width: calc(100vw / 0.7);
     overflow-x: hidden;
+    #Selection-1 {
+     top: 20%;
+    }
     #Selection-2 {
       margin: -3px;
       h2 {
@@ -620,8 +660,8 @@ input[type="radio"]:checked ~ .cbx:after {
   }
 
   .alert-box {
-    width: 70%;
-    top: calc(5vh + 370px);
+    width: 50%;
+    top: calc(5vh + 570px);
   }
   .pic {
     top: calc(5vh + -200px);
@@ -632,7 +672,7 @@ input[type="radio"]:checked ~ .cbx:after {
   position: fixed;
   width: 250%;
   height: 250%;
-  background: linear-gradient(-45deg, #ffffff, #fae9e4, #ffffff, #ffdde1);
+  background: linear-gradient(-45deg, #f2a2a2, #f2f2f2, #a2c8f2, #c7a2f2, #f2a2d0);
   background-size: 400% 400%;
   z-index: -1;
   animation: gradientBG 10s ease infinite;
@@ -648,4 +688,8 @@ input[type="radio"]:checked ~ .cbx:after {
   100% {
     background-position: 0% 50%;
   }
+}
+
+h2 {
+  color: #333333;
 }
