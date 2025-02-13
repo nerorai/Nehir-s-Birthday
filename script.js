@@ -179,7 +179,7 @@ doorButton.addEventListener('click', () => {
   createPopupMessage("Under development", [
     { id: "J1", text: "OPEN THE DOOR", action: () => {
         doorButton.classList.add('hidden')
-        switchPage(homepage, homepage);
+        switchPage(homepage, Selection-1);
     }},
     { id: "J2", text: "DO NOTHING", action: () => {} }
   ], 40); // Speed set to 40ms
