@@ -176,7 +176,7 @@ function switchPage(currentPage, nextPage) {
 
 doorButton.addEventListener('click', () => {
   // createPopupMessage("A white door casts a faint shadow. \nWhat would you like to do?", [
-  createPopupMessage("Underdevelopment", [
+  createPopupMessage("Under development", [
     { id: "J1", text: "OPEN THE DOOR", action: () => {
         doorButton.classList.add('hidden')
         switchPage(homepage, homepage);
