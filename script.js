@@ -175,10 +175,11 @@ function switchPage(currentPage, nextPage) {
   }
 
 doorButton.addEventListener('click', () => {
-    createPopupMessage("A white door casts a faint shadow. \nWhat would you like to do?", [
+  // createPopupMessage("A white door casts a faint shadow. \nWhat would you like to do?", [
+  createPopupMessage("Underdevelopment", [
     { id: "J1", text: "OPEN THE DOOR", action: () => {
         doorButton.classList.add('hidden')
-        switchPage(homepage, selection1);
+        switchPage(homepage, homepage);
     }},
     { id: "J2", text: "DO NOTHING", action: () => {} }
   ], 40); // Speed set to 40ms
