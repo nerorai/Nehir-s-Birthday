@@ -4,16 +4,48 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  height: 100%;
+}
+
+html {
+  margin: auto;
+}
+
+body {
+  text-align: center;
+  margin: 0;
+  overflow-x: hidden;
+  padding: 0;
+  max-height: 100vh;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.4s, color 0.4s;
+  z-index: 10;
+  background: rgb(255, 255, 255);
+  color: #000000;
+  #hee {
+    position: absolute;
+    font-family: "Omori", sans-serif;
+    font-size: 120px;
+    top: -1vh;
+
+  }
+}
+
 .hidden {
-display: none;
-opacity: 0;
+  display: none;
+  opacity: 0;
 }
 
 @font-face {
-font-family: "Omori";
-src: url("font/OMORI_GAME2.ttf") format("truetype");
-font-weight: normal;
-font-style: normal;
+  font-family: "Omori";
+  src: url("font/OMORI_GAME2.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 
 .confetti {
@@ -26,114 +58,40 @@ font-style: normal;
   z-index: 12;
 }
 @keyframes fall {
-  0% { transform: translateY(-10vh) rotate(0deg); }
-  100% { transform: translateY(100vh) rotate(360deg); }
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+  }
 }
 
 /* Fade-in animation */
 @keyframes fadeIn {
-from {
-  opacity: 0;
-}
-to {
-  opacity: 1;
-}
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Fade-out animation */
 @keyframes fadeOut {
-from {
-  opacity: 1;
-}
-to {
-  opacity: 0;
-}
-}
-.fade-in { animation: fadeIn 0.5s ease-in-out forwards; } .fade-out { animation: fadeOut 0.5s ease-in-out forwards; }
-
-
-@media only screen 
-and (min-device-width : 320px) 
-and (max-device-width : 580px) {
-body {
-  transform: scale(0.8);
-  transform-origin: top left;
-  width: 125vw; 
-  overflow-x: hidden !important;
-}
-.alert-box {
-    width: 100% !important;    
-}
-.alert-box p {
-  font-size: 26px !important;
-}
-.pic {
-  top: calc(5vh + -200px);
-}
-
-}
-
-@media only screen 
-and (min-device-width : 720px) 
-and (max-device-width : 900px) {
-
-  body {
-    transform: scale(0.6) !important;
-    transform-origin: top left;
-    width: 165vw !important;
-    overflow-x: hidden !important;
-    
+  from {
+    opacity: 1;
   }
-
-  .pic {
-    top: calc(5vh + -200px) !important;
-  }
-  .alert-box {
-    top: calc(5vh + 440px) !important;
+  to {
+    opacity: 0;
   }
 }
-
-@media only screen 
-and (min-device-height : 500px) 
-and (max-device-height : 1200px) {
-  body {
-    transform: scale(0.8);
-    transform-origin: top left;
-    width: 125vw; 
-    overflow-x: hidden !important;
-  }
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+.fade-out {
+  animation: fadeOut 0.5s ease-in-out forwards;
 }
 
-
-html, body {
-height: 100%;
-}
-
-html {
-margin: auto;
-}
-
-body {
-text-align: center;
-margin: 0;
-overflow-x: hidden;
-padding: 0;
-max-height: 100vh;
-height: 100%;
-display: flex;
-justify-content: center;
-align-items: center;
-transition: background 0.4s, color 0.4s;
-z-index: 10;
-background: rgb(255, 255, 255);
-color: #000000;
-#hee {
-  position: fixed;
-  font-family: "Omori", sans-serif;
-  font-size: 120px;
-  top: -3%;
-}
-}
 
 .speech-bubble {
   position: absolute;
@@ -148,7 +106,7 @@ color: #000000;
 }
 
 .speech-bubble::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -10px;
   left: 50%;
@@ -162,68 +120,69 @@ color: #000000;
 }
 
 .container-A {
-font-family: "Omori", sans-serif;
-background: #ffffff;
-border-radius: 15px;
-height: fit-content;
-animation: fadeIn 1.5s ease-in-out;
-margin: auto;
-width: 90vh;
-height: 30vh;
+  font-family: "Omori", sans-serif;
+  background: #ffffff;
+  border-radius: 15px;
+  height: fit-content;
+  animation: fadeIn 1.5s ease-in-out;
+  margin: auto;
+  width: 90vh;
+  height: 30vh;
 }
 
 h1 {
-color: #000000;
-font-size: 2.5rem;
-margin-bottom: 10px;
+  color: #000000;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
 }
 
 p {
-font-size: 1.2rem;
-margin-bottom: 20px;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
 }
 
 .alert-box button {
-font-family: "Omori", sans-serif;
-font-size: x-large;
-flex-shrink: 0;
-flex-grow: 0;
-flex-basis: calc(25% - .5rem);
-background-color: rgb(0, 0, 0);
-box-shadow: inset 0 0 0 1px #000, inset 0 0 0 3px #fff;
-user-select: none;
-min-width: 150px;
-padding: 8px;
-margin: 5px;
-color: white;
+  display: block;
+  font-family: "Omori", sans-serif;
+  font-size: x-large;
+  flex-shrink: 0;
+  flex-grow: 0;
+  flex-basis: calc(25% - 0.5rem);
+  background-color: rgb(0, 0, 0);
+  box-shadow: inset 0 0 0 1px #000, inset 0 0 0 3px #fff;
+  user-select: none;
+  min-width: 150px;
+  padding: 8px;
+  color: white;
 }
 
 .alert-box button:hover {
-background-color: black;
-background-image: none;
-flex-shrink: 0;
-flex-grow: 0;
-flex-basis: calc(25% - .5rem);
-box-shadow: inset 0 0 0 1px #000, inset 0 0 0 3px #fff;
-user-select: none;
+  background-color: black;
+  background-image: none;
+  flex-shrink: 0;
+  flex-grow: 0;
+  flex-basis: calc(25% - 0.5rem);
+  box-shadow: inset 0 0 0 1px #000, inset 0 0 0 3px #fff;
+  user-select: none;
 }
 
 .pic {
-all:unset;
-margin-left: auto;
-margin-right: auto;
-position: fixed;
-top: calc(5vh + -220px);
-z-index: 11;
+  all: unset;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  position: fixed;
+  top: calc(5vh + -220px);
+  z-index: 11;
 }
 
 .gif1 {
-max-width: 50%;
-max-height: 50%;
+  max-width: 50%;
+  max-height: 50%;
 }
 
 .png1 {
-  all:unset;
+  all: unset;
   margin-left: auto;
   margin-right: auto;
   position: fixed;
@@ -232,376 +191,386 @@ max-height: 50%;
 }
 
 .alert-box {
-font-family: "Omori", sans-serif;
-position:absolute; 
-top: calc(5vh + 480px);
-background-color: rgb(0, 0, 0);
-margin: 5px;
-width: 44%;
-height: 100px;
-color: rgb(255, 255, 255);
-line-height: 1rem;
-box-shadow: inset 0 0 0 1px #000,inset 0 0 0 3px #fff; 
-z-index: 1000;
-white-space: pre-line;
+  font-family: "Omori", sans-serif;
+  position: absolute;
+  top: calc(5vh + 480px);
+  background-color: rgb(0, 0, 0);
+  margin: 5px;
+  min-width: 44%;
+  height: 100px;
+  color: rgb(255, 255, 255);
+  line-height: 1rem;
+  box-shadow: inset 0 0 0 1px #000, inset 0 0 0 3px #fff;
+  z-index: 1000;
+  white-space: pre-line;
 }
 
 .alert-box div {
-position: absolute;
-top: -50px;
-right: -0px;
-width: auto;
-display: flex;
-flex-direction: column;
-gap: 0; 
-font-size: 18px;
+  position: absolute;
+  top: -50px;
+  right: -0px;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  font-size: 18px;
 }
 
 .alert-box div button:nth-child(2) {
-position: relative;
-top: -90px; /* Moves only the second button up */
+  position: relative;
+  top: -90px; /* Moves only the second button up */
 }
 
 .alert-box p {
-padding-left: 20px;
-text-align: left;
-margin: 0;
-font-size: 29px;
-color: #ffffff;
-line-height: 1.2;
+  padding-left: 20px;
+  text-align: left;
+  margin: 0;
+  font-size: 29px;
+  color: #ffffff;
+  line-height: 1.2;
 }
 
 /* Keyframe Animations */
 @keyframes fadeIn {
-from {
-  opacity: 0;
-  transform: translateY(20px);
-}
-to {
-  opacity: 1;
-  transform: translateY(0);
-}
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideIn {
-from {
-  opacity: 0;
-  transform: translateX(-20px);
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
-to {
-  opacity: 1;
-  transform: translateX(0);
-}
-}
-
 
 .checkbox-A {
-display: flex;
-gap: 30px;
-justify-content: center;
-padding: 14px 70px;
-background: #f8fafc;
-border-radius: 16px;
-box-shadow:
-  0 4px 6px -1px rgba(0, 0, 0, 0.1),
-  0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  padding: 14px 70px;
+  background: #f8fafc;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.05);
 }
 
 .ios-checkbox {
---checkbox-size: 28px;
---checkbox-color: #3b82f6;
---checkbox-bg: #dbeafe;
---checkbox-border: #93c5fd;
+  --checkbox-size: 28px;
+  --checkbox-color: #3b82f6;
+  --checkbox-bg: #dbeafe;
+  --checkbox-border: #93c5fd;
 
-position: relative;
-display: flex;
-align-items: center;
-gap: 10px;
-cursor: pointer;
-user-select: none;
--webkit-tap-highlight-color: transparent;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .ios-checkbox input {
-display: none;
+  display: none;
 }
 
 .checkbox-wrapper {
-position: relative;
-width: var(--checkbox-size);
-height: var(--checkbox-size);
-border-radius: 8px;
-transition: transform 0.2s ease;
+  position: relative;
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
+  border-radius: 8px;
+  transition: transform 0.2s ease;
 }
 
 .checkbox-bg {
-position: absolute;
-inset: 0;
-border-radius: 8px;
-border: 2px solid var(--checkbox-border);
-background: white;
-transition: all 0.2s ease;
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  border: 2px solid var(--checkbox-border);
+  background: white;
+  transition: all 0.2s ease;
 }
 
 .checkbox-icon {
-position: absolute;
-inset: 0;
-margin: auto;
-width: 80%;
-height: 80%;
-color: white;
-transform: scale(0);
-transition: all 0.2s ease;
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 80%;
+  height: 80%;
+  color: white;
+  transform: scale(0);
+  transition: all 0.2s ease;
 }
 
 body.dark-mode .ios-checkbox span {
-color: rgb(0, 0, 0); 
+  color: rgb(0, 0, 0);
 }
 
 .check-path {
-stroke-dasharray: 40;
-stroke-dashoffset: 40;
-transition: stroke-dashoffset 0.3s ease 0.1s;
+  stroke-dasharray: 40;
+  stroke-dashoffset: 40;
+  transition: stroke-dashoffset 0.3s ease 0.1s;
 }
 
 .ios-checkbox input:checked + .checkbox-wrapper .checkbox-bg {
-background: var(--checkbox-color);
-border-color: var(--checkbox-color);
+  background: var(--checkbox-color);
+  border-color: var(--checkbox-color);
 }
 
 .ios-checkbox input:checked + .checkbox-wrapper .checkbox-icon {
-transform: scale(1);
+  transform: scale(1);
 }
 
 .ios-checkbox input:checked + .checkbox-wrapper .check-path {
-stroke-dashoffset: 0;
+  stroke-dashoffset: 0;
 }
 
 .ios-checkbox.red {
---checkbox-color: #ef4444;
---checkbox-bg: #fee2e2;
---checkbox-border: #fca5a5;
+  --checkbox-color: #ef4444;
+  --checkbox-bg: #fee2e2;
+  --checkbox-border: #fca5a5;
 }
 
 .ios-checkbox.green {
---checkbox-color: #10b981;
---checkbox-bg: #d1fae5;
---checkbox-border: #6ee7b7;
+  --checkbox-color: #10b981;
+  --checkbox-bg: #d1fae5;
+  --checkbox-border: #6ee7b7;
 }
 
 .ios-checkbox.purple {
---checkbox-color: #8b5cf6;
---checkbox-bg: #ede9fe;
---checkbox-border: #c4b5fd;
+  --checkbox-color: #8b5cf6;
+  --checkbox-bg: #ede9fe;
+  --checkbox-border: #c4b5fd;
 }
 
 .ios-checkbox.blue {
---checkbox-color: #3b82f6;
---checkbox-bg: #dbeafe;
---checkbox-border: #93c5fd;
+  --checkbox-color: #3b82f6;
+  --checkbox-bg: #dbeafe;
+  --checkbox-border: #93c5fd;
 }
 
 .cbx {
-position: relative;
-top: 1px;
-width: 27px;
-height: 27px;
-border: 1px solid #c8ccd4;
-border-radius: 3px;
-transition: background 0.1s ease;
-cursor: pointer;
-display: block;
+  position: relative;
+  top: 1px;
+  width: 27px;
+  height: 27px;
+  border: 1px solid #c8ccd4;
+  border-radius: 3px;
+  transition: background 0.1s ease;
+  cursor: pointer;
+  display: block;
 }
 
 .cbx:after {
-content: '';
-position: absolute;
-top: 2px;
-left: 8px;
-width: 7px;
-height: 14px;
-opacity: 0;
-transform: rotate(45deg) scale(0);
-border-right: 2px solid #fff;
-border-bottom: 2px solid #fff;
-transition: all 0.3s ease;
-transition-delay: 0.15s;
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 8px;
+  width: 7px;
+  height: 14px;
+  opacity: 0;
+  transform: rotate(45deg) scale(0);
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transition: all 0.3s ease;
+  transition-delay: 0.15s;
 }
 
 .lbl {
-margin-left: 10px;
-font-size: 16px;
-color: #333;
-width: 80px; /* Fixed width for all labels */
-display: inline-block; /* Ensure the width is applied */
+  margin-left: 10px;
+  font-size: 16px;
+  color: #333;
+  width: 80px; /* Fixed width for all labels */
+  display: inline-block; /* Ensure the width is applied */
 }
 
 /* Radio button styles */
 input[type="radio"]:checked ~ .cbx {
-border-color: transparent;
-background: #d1069e;
-animation: jelly 0.6s ease;
+  border-color: transparent;
+  background: #d1069e;
+  animation: jelly 0.6s ease;
 }
 
 input[type="radio"]:checked ~ .cbx:after {
-opacity: 1;
-transform: rotate(45deg) scale(1);
+  opacity: 1;
+  transform: rotate(45deg) scale(1);
 }
 
 .cntr {
-display: flex;
-align-items: center;
-margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 @keyframes jelly {
-from {
-  transform: scale(1, 1);
-}
-30% {
-  transform: scale(1.25, 0.75);
-}
-40% {
-  transform: scale(0.75, 1.25);
-}
-50% {
-  transform: scale(1.15, 0.85);
-}
-65% {
-  transform: scale(0.95, 1.05);
-}
-75% {
-  transform: scale(1.05, 0.95);
-}
-to {
-  transform: scale(1, 1);
-}
+  from {
+    transform: scale(1, 1);
+  }
+  30% {
+    transform: scale(1.25, 0.75);
+  }
+  40% {
+    transform: scale(0.75, 1.25);
+  }
+  50% {
+    transform: scale(1.15, 0.85);
+  }
+  65% {
+    transform: scale(0.95, 1.05);
+  }
+  75% {
+    transform: scale(1.05, 0.95);
+  }
+  to {
+    transform: scale(1, 1);
+  }
 }
 
 .hidden-xs-up {
-display: none !important;
+  display: none !important;
 }
 
 .alert-box button:hover {
-opacity: 0.9;
+  opacity: 0.9;
 }
 
 /* Disable pointer events for the entire page */
 .disable-interaction {
-pointer-events: none;
+  pointer-events: none;
 }
 
 .buttonStyle {
- appearance: button;
- background-color: #1899D6;
- border: solid transparent;
- border-radius: 16px;
- border-width: 0 0 4px;
- box-sizing: border-box;
- color: #FFFFFF;
- cursor: pointer;
- display: inline-block;
- font-size: 15px;
- font-weight: 700;
- letter-spacing: .8px;
- line-height: 20px;
- margin: 10px;
- outline: none;
- overflow: visible;
- padding: 9px 40px;
- text-align: center;
- touch-action: manipulation;
- transform: translateZ(0);
- transition: filter .2s;
- user-select: none;
- -webkit-user-select: none;
- vertical-align: middle;
- white-space: nowrap;
+  appearance: button;
+  background-color: #1899d6;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  line-height: 20px;
+  margin: 10px;
+  outline: none;
+  overflow: visible;
+  padding: 9px 40px;
+  text-align: center;
+  touch-action: manipulation;
+  transform: translateZ(0);
+  transition: filter 0.2s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
 }
 
 .buttonStyle:after {
- background-clip: padding-box;
- background-color: #1CB0F6;
- border: solid transparent;
- border-radius: 16px;
- border-width: 0 0 4px;
- bottom: -4px;
- content: "";
- left: 0;
- position: absolute;
- right: 0;
- top: 0;
- z-index: -1;
+  background-clip: padding-box;
+  background-color: #1cb0f6;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  bottom: -4px;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: -1;
 }
 
 .buttonStyle:hover:not(:disabled) {
- filter: brightness(1.1);
+  filter: brightness(1.1);
 }
 
 .buttonStyle:disabled {
- cursor: auto;
+  cursor: auto;
 }
 
 .buttonStyle:active:after {
- border-width: 0 0 0px;
+  border-width: 0 0 0px;
 }
 
 .buttonStyle:active {
- padding-bottom: 10px;
+  padding-bottom: 10px;
 }
 
-#B-4, #B-6 {
+#B-4,
+#B-6 {
   background-color: rgb(117, 2, 2);
 }
-#B-4:after, #B-6:after {
+#B-4:after,
+#B-6:after {
   background-color: #ad0a0a;
 }
 
-#B-3, #B-5, #B-7, #B-8 {
+#B-3,
+#B-5,
+#B-7,
+#B-8 {
   padding: 9px 60px;
   background-color: rgb(16, 197, 188);
 }
-#B-3:after, #B-5:after, #B-7:after, #B-8:after {
+#B-3:after,
+#B-5:after,
+#B-7:after,
+#B-8:after {
   background-color: #0debe0;
 }
 
 /* Enable pointer events for the message box */
 .alert-box {
-pointer-events: auto; /* Ensure the message box is clickable */
+  pointer-events: auto; /* Ensure the message box is clickable */
 }
 
 #popup-text::after {
-content: "|";
-animation: blink 0.6s infinite alternate;
+  content: "|";
+  animation: blink 0.6s infinite alternate;
 }
 
 @keyframes blink {
-0% { opacity: 1; }
-100% { opacity: 0; }
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 #Selection-1 {
-height: 0%;
-h2 {
-  padding: 10px;
-}
+  height: 0%;
+  h2 {
+    padding: 10px;
+  }
 }
 
 #Questions {
-height: 0;
-h2 {
-  padding: 10px;
-  font-size: xx-large;
-}
+  height: 0;
+  h2 {
+    padding: 10px;
+    font-size: xx-large;
+  }
 }
 
 #Selection-2 {
   width: fit-content;
-margin: -80px;
-h2 {
-  padding: 20px;
-  font-size: x-large;
-}
+  margin: -80px;
+  h2 {
+    padding: 20px;
+    font-size: x-large;
+  }
   padding: 20px;
   border-radius: 10px;
   backdrop-filter: blur(10px); /* Frosted glass effect */
@@ -614,3 +583,41 @@ h2 {
   align-items: center;
   gap: 10px;
 }
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 580px) {
+  body {
+    transform: scale(0.8);
+    transform-origin: top left;
+    width: calc(100vw/0.8);
+    overflow-x: hidden;
+  }
+  .alert-box {
+    width: 98%;
+    margin: 10px;
+  }
+  .alert-box div button:nth-child(2) {
+    position: relative;
+    top: -95px ;
+  }
+  .alert-box p {
+    font-size: 26px;
+  }
+  .pic {
+    top: calc(5vh + -220px);
+  }
+}
+
+@media only screen and (min-device-width: 581px) and (max-device-width: 780px) {
+  body {
+    transform: scale(0.8);
+    transform-origin: top left;
+    width: calc(100vw/0.8);
+    overflow-x: hidden;
+  }
+
+  .alert-box {
+    width: 70%;
+    top: calc(5vh + 440px);
+  }
+}
+
