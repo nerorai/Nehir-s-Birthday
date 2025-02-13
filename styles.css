@@ -607,7 +607,7 @@ input[type="radio"]:checked ~ .cbx:after {
   }
 }
 
-@media only screen and (min-device-width: 581px) and (max-device-width: 780px) {
+@media only screen and (min-device-width: 581px) and (max-device-width: 1180px) {
   body {
     transform: scale(0.8);
     transform-origin: top left;
@@ -618,6 +618,9 @@ input[type="radio"]:checked ~ .cbx:after {
   .alert-box {
     width: 70%;
     top: calc(5vh + 440px);
+  }
+  .pic {
+    top: calc(5vh + -200px);
   }
 }
 
