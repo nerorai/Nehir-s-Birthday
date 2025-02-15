@@ -184,15 +184,13 @@ function switchPage(currentPage, nextPage) {
 
 doorButton.addEventListener("click", () => {
   createPopupMessage(
-    "A white door casts a faint shadow. \nWhat would you like to do?",
+    "Under development",
     [
       {
         id: "J1",
-        text: "OPEN THE DOOR",
+        text: "Do Nothing",
         action: () => {
-          doorButton.classList.add("hidden");
-          switchPage(homepage, selection1);
-          animatedBackground.classList.remove("hidden")
+      
         },
       },
       { id: "J2", text: "DO NOTHING", action: () => {} },
