@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, user-scalable=no">
@@ -11,156 +12,134 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <div id="animated-bg" class="hidden"></div>
-<body>  
+<body>
   <h2 id="hee">NEHIR</h2>
-<div class="pic"> <img src="img/lightbulb.gif" alt="bulb" class="gif1"></div>
-<div class="png1"><img src="img/door2.png" alt="whitedoor" id="door-button"> </div>
-<div id="HomePage">
-  <div class="container-A">
-   <button id = "B-1" class="hidden">Click Here</button>
-  </div> 
-</div>
-<div id="Whitedoor" class="hidden">
-  <p><span id="text-1"></span></p> 
-</div>
-<!-- New Page -->
-<div id="Selection-1" class="hidden">
-  <h2>To whom do I owe the pleasure?</h2>
-  <div class="checkbox-A">
-    <label class="ios-checkbox red">
-      <input type="radio" name="user" value="Nehir" />
-      <div class="checkbox-wrapper">
-        <div class="checkbox-bg"></div>
-        <svg fill="none" viewBox="0 0 24 24" class="checkbox-icon">
-          <path
-            stroke-linejoin="round"
-            stroke-linecap="round"
-            stroke-width="3"
-            stroke="currentColor"
-            d="M4 12L10 18L20 6"
-            class="check-path"
-          ></path>
-        </svg>
-      </div>
-      <span>Nehir</span>
-    </label>
-    <label class="ios-checkbox green">
-      <input type="radio" name="user" value="Emir" />
-      <div class="checkbox-wrapper">
-        <div class="checkbox-bg"></div>
-        <svg fill="none" viewBox="0 0 24 24" class="checkbox-icon">
-          <path
-            stroke-linejoin="round"
-            stroke-linecap="round"
-            stroke-width="3"
-            stroke="currentColor"
-            d="M4 12L10 18L20 6"
-            class="check-path"
-          ></path>
-        </svg>
-      </div>
-      <span>Emir</span>
-    </label>
-    <label class="ios-checkbox purple">
-      <input type="radio" name="user" value="Suna" />
-      <div class="checkbox-wrapper">
-        <div class="checkbox-bg"></div>
-        <svg fill="none" viewBox="0 0 24 24" class="checkbox-icon">
-          <path
-            stroke-linejoin="round"
-            stroke-linecap="round"
-            stroke-width="3"
-            stroke="currentColor"
-            d="M4 12L10 18L20 6"
-            class="check-path"
-          ></path>
-        </svg>
-      </div>
-      <span>Suna</span>
-    </label>
-    <label class="ios-checkbox blue">
-      <input type="radio" name="user" value="Guest" />
-      <div class="checkbox-wrapper">
-        <div class="checkbox-bg"></div>
-        <svg fill="none" viewBox="0 0 24 24" class="checkbox-icon">
-          <path
-            stroke-linejoin="round"
-            stroke-linecap="round"
-            stroke-width="3"
-            stroke="currentColor"
-            d="M4 12L10 18L20 6"
-            class="check-path"
-          ></path>
-        </svg>
-      </div>
-      <span>???</span>
-    </label>
-  </div>
-  <button id="B-2" class="buttonStyle">Proceed</button>
-</div>
-<!-- new page -->
-<div id="Questions" class="hidden">
-  <div id="Q1">
-    <h2>Are you Sure?</h2>
-    <button id="B-3" class="buttonStyle">YES</button>
-    <button id="B-4" class="buttonStyle">NO</button>
-  </div>
-  <div id="Q2" class="hidden">
-    <h2>Are you really sure?</h2>
-    <button id="B-5" class="buttonStyle">YES</button>
-    <button id="B-6" class="buttonStyle">NO</button>
-  </div>
-  <div id="Q3" class="hidden">
-    <h2>Like.. are you really Nehir?</h2>
-    <button id="B-7" class="buttonStyle">YES</button>
-    <button id="B-8" class="buttonStyle">YES</button>
-  </div>
-<div id="Selection-2" class="hidden">
-  <h2>If you’re really the real Nehir, Choose:</h2>
-  <div class="checkbox-container vertical">
-    <div class="cntr">
-      <input type="radio" name="final-choice" id="cbx1" class="hidden-xs-up">
-      <label for="cbx1" class="cbx"></label>
-      <span class="lbl">Arigato</span>
-    </div>
-    <div class="cntr">
-      <input type="radio" name="final-choice" id="cbx2" class="hidden-xs-up">
-      <label for="cbx2" class="cbx"></label>
-      <span class="lbl">Ronaldo</span>
-    </div>
-    <div class="cntr">
-      <input type="radio" name="final-choice" id="cbx3" class="hidden-xs-up">
-      <label for="cbx3" class="cbx"></label>
-      <span class="lbl">Soywa</span>
-    </div>
-    <div class="cntr">
-      <input type="radio" name="final-choice" id="cbx4" class="hidden-xs-up">
-      <label for="cbx4" class="cbx"></label>
-      <span class="lbl">Nani</span>
-    </div>
-    <div class="cntr">
-      <input type="radio" name="final-choice" id="cbx5" class="hidden-xs-up">
-      <label for="cbx5" class="cbx"></label>
-      <span class="lbl">Soya</span>
+  <div class="pic"> <img src="data/img/lightbulb.gif" alt="bulb" class="gif1"></div>
+  <div class="png1"><img src="data/img/door2.png" alt="whitedoor" id="door-button"> </div>
+  <div id="HomePage">
+    <div class="container-A">
+      <button id="B-1" class="hidden">Click Here</button>
     </div>
   </div>
-  <button id="B-9" class="buttonStyle">Confirm</button>
-  </div>  
+  <div id="Whitedoor" class="hidden">
+    <p><span id="text-1"></span></p>
+  </div>
+  <!-- New Page -->
+  <div id="Selection-1" class="hidden">
+    <h2>To whom do I owe the pleasure?</h2>
+    <div class="checkbox-A">
+      <label class="ios-checkbox red">
+        <input type="radio" name="user" value="Nehir" />
+        <div class="checkbox-wrapper">
+          <div class="checkbox-bg"></div>
+          <svg fill="none" viewBox="0 0 24 24" class="checkbox-icon">
+            <path stroke-linejoin="round" stroke-linecap="round" stroke-width="3" stroke="currentColor"
+              d="M4 12L10 18L20 6" class="check-path"></path>
+          </svg>
+        </div>
+        <span>Nehir</span>
+      </label>
+      <label class="ios-checkbox green">
+        <input type="radio" name="user" value="Emir" />
+        <div class="checkbox-wrapper">
+          <div class="checkbox-bg"></div>
+          <svg fill="none" viewBox="0 0 24 24" class="checkbox-icon">
+            <path stroke-linejoin="round" stroke-linecap="round" stroke-width="3" stroke="currentColor"
+              d="M4 12L10 18L20 6" class="check-path"></path>
+          </svg>
+        </div>
+        <span>Emir</span>
+      </label>
+      <label class="ios-checkbox purple">
+        <input type="radio" name="user" value="Suna" />
+        <div class="checkbox-wrapper">
+          <div class="checkbox-bg"></div>
+          <svg fill="none" viewBox="0 0 24 24" class="checkbox-icon">
+            <path stroke-linejoin="round" stroke-linecap="round" stroke-width="3" stroke="currentColor"
+              d="M4 12L10 18L20 6" class="check-path"></path>
+          </svg>
+        </div>
+        <span>Suna</span>
+      </label>
+      <label class="ios-checkbox blue">
+        <input type="radio" name="user" value="Guest" />
+        <div class="checkbox-wrapper">
+          <div class="checkbox-bg"></div>
+          <svg fill="none" viewBox="0 0 24 24" class="checkbox-icon">
+            <path stroke-linejoin="round" stroke-linecap="round" stroke-width="3" stroke="currentColor"
+              d="M4 12L10 18L20 6" class="check-path"></path>
+          </svg>
+        </div>
+        <span>???</span>
+      </label>
+    </div>
+    <button id="B-2" class="buttonStyle">Proceed</button>
+  </div>
   <!-- new page -->
-<div id="CongratsPage" class="hidden">
-  <div class="container-B">
-    <h2>Congratulation dostum, you passed the security system</h2>
-    <button id="B-10" class="buttonStyle">Yayy</button>
-  </div>
-</div>
-<!-- new page -->
-<div id="SecurityBox" class="hidden">
-  <div class="container-B">
-    <p>Why all this you say? This is our super intelligent most advanced security system, merely to ensure that you’re the real Nehir.</p>
-    <button id="B-11"class="buttonStyle">Continue</button>
-    <button id="B-12"class="buttonStyle">Do nothing</button>
-  </div>
-</div>
+  <div id="Questions" class="hidden">
+    <div id="Q1">
+      <h2>Are you Sure?</h2>
+      <button id="B-3" class="buttonStyle">YES</button>
+      <button id="B-4" class="buttonStyle">NO</button>
+    </div>
+    <div id="Q2" class="hidden">
+      <h2>Are you really sure?</h2>
+      <button id="B-5" class="buttonStyle">YES</button>
+      <button id="B-6" class="buttonStyle">NO</button>
+    </div>
+    <div id="Q3" class="hidden">
+      <h2>Like.. are you really Nehir?</h2>
+      <button id="B-7" class="buttonStyle">YES</button>
+      <button id="B-8" class="buttonStyle">YES</button>
+    </div>
+    <div id="Selection-2" class="hidden">
+      <h2>If you’re really the real Nehir, Choose:</h2>
+      <div class="checkbox-container vertical">
+        <div class="cntr">
+          <input type="radio" name="final-choice" id="cbx1" class="hidden-xs-up">
+          <label for="cbx1" class="cbx"></label>
+          <span class="lbl">Arigato</span>
+        </div>
+        <div class="cntr">
+          <input type="radio" name="final-choice" id="cbx2" class="hidden-xs-up">
+          <label for="cbx2" class="cbx"></label>
+          <span class="lbl">Ronaldo</span>
+        </div>
+        <div class="cntr">
+          <input type="radio" name="final-choice" id="cbx3" class="hidden-xs-up">
+          <label for="cbx3" class="cbx"></label>
+          <span class="lbl">Soywa</span>
+        </div>
+        <div class="cntr">
+          <input type="radio" name="final-choice" id="cbx4" class="hidden-xs-up">
+          <label for="cbx4" class="cbx"></label>
+          <span class="lbl">Nani</span>
+        </div>
+        <div class="cntr">
+          <input type="radio" name="final-choice" id="cbx5" class="hidden-xs-up">
+          <label for="cbx5" class="cbx"></label>
+          <span class="lbl">Soya</span>
+        </div>
+      </div>
+      <button id="B-9" class="buttonStyle">Confirm</button>
+    </div>
+    <!-- new page -->
+    <div id="CongratsPage" class="hidden">
+      <div class="container-B">
+        <h2>Congratulations, dostum! <br>You passed the security system.</h2>
+        <button id="B-10" class="buttonStyle">Yayy</button>
+      </div>
+    </div>
+    <!-- new page -->
+    <div id="SecurityBox" class="hidden">
+      <div class="container-B">
+        <p>Why all this you say? <br>This is our super intelligent most advanced security system, <br>merely to ensure
+          that you’re the real Nehir.</p>
+        <button id="B-11" class="buttonStyle">Do nothing</button>
+        <button id="B-12" class="buttonStyle2">Continue</button>
+      </div>
+    </div>
     <script defer src="script.js"></script>
 </body>
+
 </html>

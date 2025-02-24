@@ -36,13 +36,12 @@ body {
 }
 
 .hidden {
-  display: none;
-  opacity: 0;
+  display: none !important;
 }
 
 @font-face {
   font-family: "Omori";
-  src: url("font/OMORI_GAME2.ttf") format("truetype");
+  src: url("data/font/OMORI_GAME2.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -89,32 +88,6 @@ body {
 }
 .fade-out {
   animation: fadeOut 0.5s ease-in-out forwards;
-}
-
-.speech-bubble {
-  position: absolute;
-  background-color: #000;
-  color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  font-size: 16px;
-  z-index: 1000;
-  white-space: nowrap;
-}
-
-.speech-bubble::after {
-  content: "";
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 10px 10px 0;
-  border-style: solid;
-  border-color: #000 transparent transparent transparent;
-}
-.speech-bubble {
-  transition: top 0.5s ease, left 0.5s ease;
 }
 
 .container-A {
@@ -446,7 +419,8 @@ input[type="radio"]:checked ~ .cbx:after {
   pointer-events: none;
 }
 
-.buttonStyle {
+.buttonStyle,
+.buttonStyle2 {
   appearance: button;
   background-color: #1899d6;
   border: solid transparent;
@@ -474,7 +448,8 @@ input[type="radio"]:checked ~ .cbx:after {
   white-space: nowrap;
 }
 
-.buttonStyle:after {
+.buttonStyle:after,
+.buttonStyle2:after {
   background-clip: padding-box;
   background-color: #1cb0f6;
   border: solid transparent;
@@ -489,19 +464,23 @@ input[type="radio"]:checked ~ .cbx:after {
   z-index: -1;
 }
 
-.buttonStyle:hover:not(:disabled) {
+.buttonStyle:hover:not(:disabled),
+.buttonStyle2:hover:not(:disabled) {
   filter: brightness(1.1);
 }
 
-.buttonStyle:disabled {
+.buttonStyle:disabled
+.buttonStyle2:disabled {
   cursor: auto;
 }
 
-.buttonStyle:active:after {
+.buttonStyle:active:after,
+.buttonStyle2:active:after {
   border-width: 0 0 0px;
 }
 
-.buttonStyle:active {
+.buttonStyle:active
+.buttonStyle2:active {
   padding-bottom: 10px;
 }
 
@@ -526,6 +505,39 @@ input[type="radio"]:checked ~ .cbx:after {
 #B-7:after,
 #B-8:after {
   background-color: #0debe0;
+}
+
+#CongratsPage {
+  .buttonStyle {
+    background-color: #17d1c8;
+    padding-left: 70px;
+    padding-right: 70px;
+
+  }
+  .buttonStyle::after {
+    background-color: #0debe0;
+  }
+}
+
+#SecurityBox {
+  font-weight: bold;
+  p {
+    margin-top: 20px;
+  }
+  font-family: 'Poppins', sans-serif;
+  .buttonStyle {
+    background-color: #000;
+  }
+  .buttonStyle::after {
+    background-color: #000;
+  }
+  .buttonStyle2 {
+    color: black;
+    background-color: #e6d8d8;
+  }
+  .buttonStyle2::after {
+    background-color: #d4c7c7;
+  }
 }
 
 /* Enable pointer events for the message box */
@@ -576,7 +588,7 @@ input[type="radio"]:checked ~ .cbx:after {
   }
 }
 
-#Selection-2 {
+#Selection-2, .container-B {
   background: rgba(255, 255, 255, 0.2);
   padding: 20px;
   border-radius: 15px;
@@ -585,8 +597,9 @@ input[type="radio"]:checked ~ .cbx:after {
   transition: transform 0.3s;
   height: fit-content;
   width: fit-content;
-  margin: -130px;
+  margin-top: -130px;
   h2 {
+    font-family: 'Poppins', sans-serif;
     color: #3D2352;
     padding: 20px;
     font-size: x-large;
@@ -598,7 +611,8 @@ input[type="radio"]:checked ~ .cbx:after {
 }
 
 #Selection-1:hover,
-#Selection-2:hover {
+#Selection-2:hover,
+.container-B:hover {
   transform: scale(1.02);
 }
 
@@ -610,6 +624,16 @@ input[type="radio"]:checked ~ .cbx:after {
   gap: 10px;
 }
 
+#animated-bg {
+  position: fixed;
+  width: 350%;
+  height: 350%;
+  background: linear-gradient(-45deg, #f2a2a2, #f2f2f2, #a2c8f2, #c7a2f2, #f2a2d0);
+  background-size: 400% 400%;
+  z-index: -1;
+  animation: gradientBG 10s ease infinite;
+}
+
 @media only screen and (min-device-width: 320px) and (max-device-width: 580px) {
   body {
     transform: scale(0.8);
@@ -619,7 +643,7 @@ input[type="radio"]:checked ~ .cbx:after {
     #Selection-1 {
       top: 30px;
     }
-    #Selection-2 {
+    #Selection-2, .container-B {
       margin: 0px;
       h2 {
         padding: 20px;
@@ -651,7 +675,7 @@ input[type="radio"]:checked ~ .cbx:after {
     #Selection-1 {
      top: 50%;
     }
-    #Selection-2 {
+    #Selection-2, .container-B {
       margin: -3px;
       h2 {
         padding: 20px;
@@ -663,7 +687,6 @@ input[type="radio"]:checked ~ .cbx:after {
       }
           }
   }
-
   .alert-box {
     width: 50%;
     top: calc(5vh + 370px);
@@ -671,16 +694,6 @@ input[type="radio"]:checked ~ .cbx:after {
   .pic {
     top: calc(5vh + -200px);
   }
-}
-
-#animated-bg {
-  position: fixed;
-  width: 350%;
-  height: 350%;
-  background: linear-gradient(-45deg, #f2a2a2, #f2f2f2, #a2c8f2, #c7a2f2, #f2a2d0);
-  background-size: 400% 400%;
-  z-index: -1;
-  animation: gradientBG 10s ease infinite;
 }
 
 @keyframes gradientBG {

@@ -2,6 +2,11 @@ document.addEventListener("DOMContentLoaded", function () {
   userRadios.forEach((radio) => (radio.checked = false));
 });
 
+window.onload = function () {
+  let radios = document.querySelectorAll('input[type="radio"]');
+  radios.forEach((radio) => (radio.checked = false));
+};
+
 const numConfetti = window.innerWidth < 600 ? 30 : 50; // Reduce confetti on small screens
 
 function createConfetti() {
@@ -40,15 +45,18 @@ const confirmFinalButton = document.getElementById('B-9');
 const congratsPage       = document.getElementById("CongratsPage");
 const yayyButton         = document.getElementById("B-10");
 const securityBox        = document.getElementById("SecurityBox");
-const continueButton     = document.getElementById("B-11");
-const doNothingButton    = document.getElementById("B-12");
+const doNothingButton    = document.getElementById("B-11");
+const continueButton     = document.getElementById("B-12");
+const GameBG             = document.getElementById("GameBG");
+const gameBoard          = document.getElementById("gameBoard");
+
+
 
 let audioContext;
-let typingSoundBuffer;
 let typingSoundSource = null;
 
 function loadAudio() {
-  fetch("sounds/omori.mp3")
+  fetch("data/sounds/omori.mp3")
     .then((response) => response.arrayBuffer())
     .then((data) => audioContext.decodeAudioData(data))
     .then((buffer) => {
@@ -82,6 +90,13 @@ initAudio();
 
 let openPopups = 0;
 
+// Remove the global typingSoundSource variable
+let typingSoundBuffer = null;
+
+function stopTypingSound() {
+  // This function is no longer needed as each popup manages its own sound
+}
+
 function createPopupMessage(
   message,
   buttons,
@@ -101,13 +116,13 @@ function createPopupMessage(
   const popup = document.createElement("div");
   popup.classList.add("alert-box");
   popup.innerHTML = `
-      <p><span id="popup-text"></span></p>
-      <div>
-        ${buttons
-          .map((button) => `<button id="${button.id}">${button.text}</button>`)
-          .join("")}
-      </div>
-    `;
+    <p><span id="popup-text"></span></p>
+    <div>
+      ${buttons
+        .map((button) => `<button id="${button.id}">${button.text}</button>`)
+        .join("")}
+    </div>
+  `;
   document.body.appendChild(popup);
 
   const textElement = popup.querySelector("#popup-text");
@@ -118,12 +133,30 @@ function createPopupMessage(
     button.style.transition = "opacity 0.5s ease-in-out";
   });
 
-  stopTypingSound();
-  typingSoundSource = audioContext.createBufferSource();
-  typingSoundSource.buffer = typingSoundBuffer;
-  typingSoundSource.loop = true;
-  typingSoundSource.connect(audioContext.destination);
-  typingSoundSource.start();
+  let currentSoundSource = null;
+
+  function startSound() {
+    if (!typingSoundBuffer) return;
+    if (currentSoundSource) {
+      currentSoundSource.stop();
+      currentSoundSource.disconnect();
+    }
+    currentSoundSource = audioContext.createBufferSource();
+    currentSoundSource.buffer = typingSoundBuffer;
+    currentSoundSource.loop = true;
+    currentSoundSource.connect(audioContext.destination);
+    currentSoundSource.start();
+  }
+
+  function stopSound() {
+    if (currentSoundSource) {
+      currentSoundSource.stop();
+      currentSoundSource.disconnect();
+      currentSoundSource = null;
+    }
+  }
+
+  startSound();
 
   function type() {
     if (i < message.length) {
@@ -131,16 +164,16 @@ function createPopupMessage(
       i++;
 
       if (i === pauseAtChar) {
-        stopTypingSound();
+        stopSound();
         setTimeout(() => {
-          playTypingSound(); // Restart sound after pause
-          type(); // Resume typing
+          startSound();
+          type();
         }, pauseDuration);
       } else {
         setTimeout(type, speed);
       }
     } else {
-      stopTypingSound();
+      stopSound();
       popup.querySelectorAll("button").forEach((button) => {
         button.style.opacity = "1";
       });
@@ -152,7 +185,7 @@ function createPopupMessage(
   buttons.forEach((button) => {
     const btnElement = popup.querySelector(`#${button.id}`);
     btnElement.addEventListener("click", () => {
-      stopTypingSound();
+      stopSound();
       popup.remove();
       openPopups--;
 
@@ -184,13 +217,15 @@ function switchPage(currentPage, nextPage) {
 
 doorButton.addEventListener("click", () => {
   createPopupMessage(
-    "Under development",
+    "A white door casts a faint shadow. \nWhat would you like to do?",
     [
       {
         id: "J1",
-        text: "Do Nothing",
+        text: "OPEN THE DOOR",
         action: () => {
-      
+          doorButton.classList.add("hidden");
+          switchPage(homepage, selection1);
+          animatedBackground.classList.remove("hidden");
         },
       },
       { id: "J2", text: "DO NOTHING", action: () => {} },
@@ -213,7 +248,6 @@ userRadios.forEach((radio) => {
 });
 
 let clickCount = 0;
-let speechBubble = null;
 let animationFrameId = null;
 
 proceedButton.addEventListener("click", () => {
@@ -227,35 +261,6 @@ proceedButton.addEventListener("click", () => {
       proceedButton.style.transition = "transform 0.5s ease";
       proceedButton.style.transform = `translate(${moveX}px, ${moveY}px)`;
 
-      if (speechBubble) {
-        speechBubble.remove();
-        speechBubble = null;
-        cancelAnimationFrame(animationFrameId);
-      }
-      if (clickCount === 2) {
-        speechBubble = document.createElement("div");
-        speechBubble.classList.add("speech-bubble");
-        speechBubble.textContent = ".....!!";
-        document.body.appendChild(speechBubble);
-        const updateBubblePosition = () => {
-          if (speechBubble) {
-            const buttonRect = proceedButton.getBoundingClientRect();
-            speechBubble.style.top = `${buttonRect.top - 1}px`;
-            speechBubble.style.left = `${
-              buttonRect.left + buttonRect.width / 2
-            }px`;
-          }
-          animationFrameId = requestAnimationFrame(updateBubblePosition);
-        };
-        updateBubblePosition();
-        setTimeout(() => {
-          if (speechBubble) {
-            speechBubble.remove();
-            speechBubble = null;
-            cancelAnimationFrame(animationFrameId);
-          }
-        }, 10000);
-      }
       if (clickCount === 3) {
         createPopupMessage(
           "Nehir.. do you have your glasses on?",
@@ -401,7 +406,7 @@ confirmFinalButton.addEventListener("click", () => {
 
   if (!selectedChoice) {
     createPopupMessage(
-      "You need to select something first!",
+      "Umm.. you choosed nothing.",
       [{ id: "J20", text: "Okay", action: () => {} }],
       40
     );
@@ -411,7 +416,7 @@ confirmFinalButton.addEventListener("click", () => {
   if (wrongAttempts === 2) {
     wrongAttempts++;
     createPopupMessage(
-      "What are you trying to do? The real Nehir would have known from the first glance.",
+      "What are you trying to do? \nThe real Nehir would have known from the first glance.",
       [
         {
           id: "J13",
@@ -434,6 +439,16 @@ confirmFinalButton.addEventListener("click", () => {
       1500
     );
     return;
+  }
+
+  if (selectedChoice.id == "cbx5") {
+    wrongAttempts = 0;
+    switchPage(finalSelection, congratsPage);
+    createPopupMessage(
+      "WElcome, Nehir.",
+      [{ id: "J21", text: "Continue", action: () => {} }],
+      140
+    );
   }
 
   if (selectedChoice.id !== "cbx5") {
@@ -471,3 +486,45 @@ confirmFinalButton.addEventListener("click", () => {
     }
   }
 });
+
+yayyButton.addEventListener("click", () => {
+  switchPage(congratsPage, securityBox);
+});
+
+doNothingButton.addEventListener("click", () => {
+  createPopupMessage(
+    "You did 'Nothing'.",
+    [{ id: "J20", text: "Okay", action: () => {} }],
+    40
+  );
+  return;
+})
+
+continueButton.addEventListener("click", () => {
+  createPopupMessage(
+    "Finally, you came this far.",
+    [
+      {
+        id: "J21",
+        text: "Continue",
+        action: () => {
+          createPopupMessage(
+            "It's best if you play this stage on a laptop. \nIf you're on mobile, turn your phone sideways.",
+            [
+              {
+                id: "J22",
+                text: "Okay",
+                action: () => {
+                  window.location.href = "Game-demo/game.html";
+                },
+              },
+            ],
+            40
+          );
+        },
+      },
+    ],
+    40
+  );
+});
+
