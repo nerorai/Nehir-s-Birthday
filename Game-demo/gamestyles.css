@@ -4,7 +4,7 @@ body {
     align-items: center;
     height: 100vh;
     background-color: pink;
-    background-image: url('img/b4.jpg');
+    background-image: url('../data/img/b4.jpg');
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
