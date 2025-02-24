@@ -221,11 +221,11 @@ doorButton.addEventListener("click", () => {
     [
       {
         id: "J1",
-        text: "OPEN THE DOOR",
+        text: "DO NOTHING",
         action: () => {
-          doorButton.classList.add("hidden");
-          switchPage(homepage, selection1);
-          animatedBackground.classList.remove("hidden");
+          
+          
+        
         },
       },
       { id: "J2", text: "DO NOTHING", action: () => {} },
