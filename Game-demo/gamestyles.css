@@ -1,0 +1,62 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: pink;
+    background-image: url('img/b4.jpg');
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#gameBoard {
+    display: grid;
+    grid-template-columns: repeat(10, 40px);
+    grid-template-rows: repeat(10, 40px);
+    gap: 2px;
+    background-color: #ffb6c1;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.tile {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Walls */
+.wall {
+    background-color: #dedede;
+    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Path with a checkered effect */
+.path {
+    background: repeating-linear-gradient(
+        45deg,
+        #fff8e1,
+        #fff8e1 10px,
+        #fce4ec 10px,
+        #fce4ec 20px
+    );
+    border-radius: 5px;
+}
+
+/* Player */
+.player {
+    background-color: green;
+    border-radius: 50%;
+}
+
+/* Goal */
+.goal {
+    background-color: red;
+    border-radius: 50%;
+}
+
