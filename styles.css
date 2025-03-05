@@ -90,6 +90,62 @@ body {
   animation: fadeOut 0.5s ease-in-out forwards;
 }
 
+/* Container for the language selector */
+#language-selector-container {
+  position: fixed; /* Fixed position */
+  top: 20px; /* Adjust this value to move it down from the very top */
+  right: 20px; /* Adjust this value to move it left/right */
+  z-index: 1000; /* Ensure it's above other elements */
+  width: 150px; /* Set a fixed width for the dropdown */
+}
+
+/* Override Choices.js default styles */
+.choices {
+  margin-bottom: 0; /* Remove default margin */
+}
+
+.choices__inner {
+  background-color: #f8f9fa; /* Background color */
+  border: 2px solid #007bff; /* Border color */
+  border-radius: 8px; /* Rounded corners */
+  padding: 5px 10px; /* Padding */
+  font-size: 14px; /* Font size */
+  min-height: auto; /* Remove default min-height */
+}
+
+.choices__list--single {
+  padding: 0; /* Remove default padding */
+}
+
+.choices__list--dropdown {
+  border: 2px solid #007bff; /* Match border color */
+  border-radius: 8px; /* Rounded corners */
+  margin-top: 5px; /* Add some space between the dropdown and the button */
+}
+
+.choices__list--dropdown .choices__item {
+  padding: 8px 10px; /* Add padding to dropdown items */
+}
+
+.choices__list--dropdown .choices__item--selectable {
+  color: #333; /* Text color */
+}
+
+.choices__list--dropdown .choices__item--selectable:hover {
+  background-color: #e9ecef; /* Hover background */
+}
+
+.choices[data-type*="select-one"] .choices__inner {
+  padding-right: 30px; /* Add space for the arrow */
+}
+
+.choices[data-type*="select-one"]::after {
+  border-color: #007bff transparent transparent transparent; /* Arrow color */
+  right: 10px; /* Position the arrow */
+  top: 50%; /* Center the arrow vertically */
+  transform: translateY(-50%); /* Center the arrow vertically */
+}
+
 .container-A {
   font-family: "Omori", sans-serif;
   background: #ffffff;
@@ -306,9 +362,9 @@ body.dark-mode .ios-checkbox span {
 }
 
 .ios-checkbox.red {
-  --checkbox-color: #ef4444;
-  --checkbox-bg: #fee2e2;
-  --checkbox-border: #fca5a5;
+  --checkbox-color: #40e0d0; 
+  --checkbox-bg: #a0f0e0;
+  --checkbox-border: #30c0b0;
 }
 
 .ios-checkbox.green {
@@ -318,9 +374,9 @@ body.dark-mode .ios-checkbox span {
 }
 
 .ios-checkbox.purple {
-  --checkbox-color: #8b5cf6;
-  --checkbox-bg: #ede9fe;
-  --checkbox-border: #c4b5fd;
+  --checkbox-color: #B2AA9F;
+  --checkbox-bg: #E0DBD4;
+  --checkbox-border: #9C9388;
 }
 
 .ios-checkbox.blue {
@@ -360,11 +416,10 @@ body.dark-mode .ios-checkbox span {
   margin-left: 10px;
   font-size: 16px;
   color: #333;
-  width: 80px; /* Fixed width for all labels */
-  display: inline-block; /* Ensure the width is applied */
+  width: 80px; 
+  display: inline-block;
 }
 
-/* Radio button styles */
 input[type="radio"]:checked ~ .cbx {
   border-color: transparent;
   background: #d1069e;
@@ -649,6 +704,20 @@ input[type="radio"]:checked ~ .cbx:after {
         padding: 20px;
       }
     }
+  }
+  #language-selector-container {
+    top: 120px; 
+    right: 20px;
+    width: 120px; 
+  }
+
+  .choices__inner {
+    padding: 5px 8px; 
+    font-size: 12px;
+  }
+
+  .choices[data-type*="select-one"]::after {
+    right: 8px;
   }
   .alert-box {
     width: 98%;
