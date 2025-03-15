@@ -19,12 +19,8 @@ doorButton.addEventListener("click", () => {
     [
       {
         id: "J1",
-        textKey: "openDoor",
+        textKey: "DO NOTHING OKAY?",
         action: () => {
-          doorButton.classList.add("hidden");
-          languageSelector.classList.add("hidden")
-          switchPage(homepage, selection1);
-          animatedBackground.classList.remove("hidden");
         },
       },
       { id: "J2", textKey: "doNothing", action: () => {} },
