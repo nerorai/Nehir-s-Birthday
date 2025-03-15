@@ -19,7 +19,6 @@ body {
   overflow-x: hidden;
   padding: 0;
   max-height: 100vh;
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,8 +30,15 @@ body {
     position: absolute;
     font-family: "Omori", sans-serif;
     font-size: 120px;
-    top: -1vh;
+    top: -20px;
   }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  justify-content: center;
 }
 
 .hidden {
@@ -169,36 +175,28 @@ p {
 }
 
 .pic {
-  all: unset;
-  position: absolute;
-  margin-left: auto;
-  margin-right: auto;
   position: fixed;
-  top: calc(5vh + -220px);
+  display: flex;
+  top: -180px;
   z-index: 11;
+  height: 360px;
 }
 
-.gif1 {
-  max-width: 50%;
-  max-height: 50%;
-}
 
 .png1 {
-  all: unset;
-  margin-left: auto;
-  margin-right: auto;
   position: fixed;
   z-index: 10;
-  top: calc(5vh + 190px);
+  top: 180px;
 }
 
 .alert-box {
   font-family: "Omori", sans-serif;
-  position: absolute;
-  top: calc(5vh + 480px);
+  position: fixed;
+  top: 70%; 
+  left: 50%;
+  transform: translateX(-50%);
   background-color: rgb(0, 0, 0);
-  margin: 5px;
-  min-width: 44%;
+  width: 600px;
   height: 100px;
   color: rgb(255, 255, 255);
   line-height: 1rem;
@@ -220,7 +218,7 @@ p {
 
 .alert-box div button:nth-child(2) {
   position: relative;
-  top: -90px; /* Moves only the second button up */
+  top: -95px; /* Moves only the second button up */
 }
 
 .alert-box p {
@@ -613,24 +611,18 @@ input[type="radio"]:checked ~ .cbx:after {
   }
 }
 
-#Selection-1 {
-  position: relative;
-  justify-content: center;
+.Selection-1Container {
   background: rgba(255, 255, 255, 0.2);
-  padding: 20px;
+  padding: 15px;
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
   transition: transform 0.3s;
-  height: fit-content;
   h2 {
     padding-bottom: 30px;
   }
   button {
-    right: 34%;
-    position: absolute;
-    display: block;
-    margin-top: 40px;
+    margin-top: 20px;
   }
 }
 
@@ -643,25 +635,27 @@ input[type="radio"]:checked ~ .cbx:after {
 }
 
 #Selection-2, .container-B {
+  display: flex;
+  position: relative;
+  bottom: 90px;
   background: rgba(255, 255, 255, 0.2);
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
   transition: transform 0.3s;
-  height: fit-content;
-  width: fit-content;
-  margin-top: -130px;
+  border-radius: 10px;
+  backdrop-filter: blur(10px); /* Frosted glass effect */
+  border: 1px solid rgba(255, 255, 255, 0.1);
   h2 {
     font-family: 'Poppins', sans-serif;
     color: #3D2352;
     padding: 20px;
     font-size: x-large;
   }
-  padding: 20px;
-  border-radius: 10px;
-  backdrop-filter: blur(10px); /* Frosted glass effect */
-  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.container-B {
+  display: block;
 }
 
 #Selection-1:hover,
@@ -680,8 +674,8 @@ input[type="radio"]:checked ~ .cbx:after {
 
 #animated-bg {
   position: fixed;
-  width: 350%;
-  height: 350%;
+  width: 100%;
+  height: 100%;
   background: linear-gradient(-45deg, #f2a2a2, #f2f2f2, #a2c8f2, #c7a2f2, #f2a2d0);
   background-size: 400% 400%;
   z-index: -1;
@@ -689,19 +683,18 @@ input[type="radio"]:checked ~ .cbx:after {
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 580px) {
-  body {
+  .wrapper {
     transform: scale(0.8);
-    transform-origin: top left;
     width: calc(100vw / 0.8);
-    overflow-x: hidden;
-    #Selection-1 {
-      top: 30px;
-    }
-    #Selection-2, .container-B {
-      margin: 0px;
-      h2 {
-        padding: 20px;
-      }
+    height: calc(100vh / 0.8);
+  }
+  .Selection-1Container {
+    top: 30px;
+  }
+  #Selection-2, .container-B {
+    margin: 0px;
+    h2 {
+      padding: 20px;
     }
   }
   #language-selector-container {
@@ -719,49 +712,38 @@ input[type="radio"]:checked ~ .cbx:after {
     right: 8px;
   }
   .alert-box {
+    top: 40%;
     width: 98%;
-    margin: 10px;
-  }
-  .alert-box div button:nth-child(2) {
-    position: relative;
-    top: -95px;
   }
   .alert-box p {
     font-size: 26px;
   }
-  .pic {
-    top: calc(5vh + -220px);
-  }
+
 }
 
 @media only screen and (min-device-width: 581px) and (max-device-width: 1000px) {
-  body {
+  .wrapper {
     transform: scale(0.7);
-    transform-origin: top left;
     width: calc(100vw / 0.7);
-    overflow-x: hidden;
-    #Selection-1 {
-     top: 50%;
-    }
-    #Selection-2, .container-B {
-      margin: -3px;
-      h2 {
-        padding: 20px;
-      }
-    }
-    #Questions {
-      h2 {
-        margin-top: 59px;
-      }
-          }
+    height: calc(100vh / 0.7);
   }
-  .alert-box {
-    width: 50%;
-    top: calc(5vh + 370px);
+  #Selection-1 {
+    top: 50%;
+   }
+   #Selection-2, .container-B {
+     margin: -3px;
+     h2 {
+       padding: 20px;
+     }
+   }
+   .alert-box {
+    width: 80%;
   }
-  .pic {
-    top: calc(5vh + -200px);
-  }
+   #Questions {
+     h2 {
+       margin-top: 59px;
+     }
+         }
 }
 
 @keyframes gradientBG {
