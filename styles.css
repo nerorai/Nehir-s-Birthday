@@ -27,10 +27,10 @@ body {
   background: rgb(255, 255, 255);
   color: #000000;
   #hee {
-    position: fixed;
+    position: absolute;
     font-family: "Omori", sans-serif;
     font-size: 120px;
-    top: -20px;
+    top: 0;
   }
 }
 
