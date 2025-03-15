@@ -27,7 +27,7 @@ body {
   background: rgb(255, 255, 255);
   color: #000000;
   #hee {
-    position: absolute;
+    position: fixed;
     font-family: "Omori", sans-serif;
     font-size: 120px;
     top: -20px;
