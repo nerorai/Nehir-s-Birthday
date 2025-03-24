@@ -19,7 +19,7 @@ doorButton.addEventListener("click", () => {
     [
       {
         id: "J1",
-        textKey: "doNothing?",
+        textKey: "doNothing",
         action: () => {
         },
       },
