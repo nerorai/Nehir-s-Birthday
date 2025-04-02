@@ -1,248 +1,154 @@
 document.addEventListener("DOMContentLoaded", function () {
-  userRadios.forEach((radio) => (radio.checked = false));
-});
+  var birthdayCard = document.querySelector(".birthdayCard");
+  birthdayCard.classList.remove("visible");
+  birthdayCard.classList.remove("shifted");
 
-window.onload = function () {
-  let radios = document.querySelectorAll('input[type="radio"]');
-  radios.forEach((radio) => (radio.checked = false));
-};
+  var toggleButton = document.querySelector(".card-toggle");
+  toggleButton.checked = false;
 
-let currentLang = "en";
-let langData = {};
+  const fourthLayerAnimation = document.getElementById("bizcocho_3");
 
-function loadLanguage(lang) {
-  fetch("lang.json")
-    .then((response) => response.json())
-    .then((data) => {
-      currentLang = lang;
-      langData = data[lang];
-      updateTextContent(langData);
+  fourthLayerAnimation.addEventListener("endEvent", function () {
+    const notification = document.getElementById("notification");
+    notification.classList.add("show");
+
+    notification.addEventListener("click", function () {
+      birthdayCard.classList.add("visible");
     });
-}
-
-document.getElementById("language-selector").addEventListener("change", (e) => {
-  loadLanguage(e.target.value);
-});
-
-function updateTextContent(langData) {
-  document.querySelectorAll("[data-lang-key]").forEach((element) => {
-    const key = element.getAttribute("data-lang-key");
-    element.textContent = langData[key];
-  });
-}
-
-loadLanguage(currentLang);
-
-function getTranslation(key) {
-  return langData[key] || langData["en"][key];
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-  const languageSelector = new Choices("#language-selector", {
-    searchEnabled: false, 
-    itemSelectText: "",
-  });
-
-  languageSelector.setChoiceByValue("en");
-
-  loadLanguage("en");
-
-  languageSelector.passedElement.element.addEventListener("change", function (event) {
-    const selectedLanguage = event.detail.value;
-    loadLanguage(selectedLanguage);
   });
 });
 
-const userRadios         = document.querySelectorAll('input[name="user"]');
-const animatedBackground = document.getElementById("animated-bg")
-const homepage           = document.getElementById('HomePage');
-const doorButton         = document.getElementById("door-button");
-const whitedoor          = document.getElementById("Whitedoor");
-const pic                = document.getElementById("pic");
-const selection1         = document.getElementById('Selection-1');
-const proceedButton      = document.getElementById('B-2');
-const questions          = document.getElementById('Questions');
-const Q1                 = document.getElementById('Q1');
-const Q2                 = document.getElementById('Q2');
-const Q3                 = document.getElementById('Q3');
-const yesQ1              = document.getElementById('B-3');
-const noQ1               = document.getElementById('B-4');
-const yesQ2              = document.getElementById('B-5');
-const noQ2               = document.getElementById('B-6');
-const yesQ3              = document.getElementById('B-7');
-const yesQ33             = document.getElementById('B-8');
-const finalSelection     = document.getElementById('Selection-2');
-const cbx5               = document.getElementById('cbx5');
-const confirmFinalButton = document.getElementById('B-9');
-const congratsPage       = document.getElementById("CongratsPage");
-const yayyButton         = document.getElementById("B-10");
-const securityBox        = document.getElementById("SecurityBox");
-const doNothingButton    = document.getElementById("B-11");
-const continueButton     = document.getElementById("B-12");
-const GameBG             = document.getElementById("GameBG");
-const gameBoard          = document.getElementById("gameBoard");
-const languageSelector   = document.getElementById("language-selector-container")
+document.querySelector(".x-btn").addEventListener("click", function () {
+  var birthdayCard = document.querySelector(".birthdayCard");
+  birthdayCard.classList.remove("visible");
+});
 
-let audioContext;
-let typingSoundSource = null;
+document.querySelectorAll("*").forEach((el) => {
+  if (el.offsetWidth > document.documentElement.clientWidth) {
+    console.log("Overflowing element:", el);
+  }
+});
 
-function loadAudio() {
-  fetch("data/sounds/omori.mp3")
-    .then((response) => response.arrayBuffer())
-    .then((data) => audioContext.decodeAudioData(data))
-    .then((buffer) => {
-      typingSoundBuffer = buffer;
-    });
+function scrollToBottom() {
+  const element = document.documentElement; 
+  element.scrollTop = element.scrollHeight;
 }
 
-function initAudio() {
-  audioContext = new (window.AudioContext || window.AudioContext)();
-  loadAudio();
-}
+setTimeout(scrollToBottom, 0);
 
-function playTypingSound() {
-  if (!typingSoundBuffer) return;
+const card = document.querySelector(".birthdayCard");
+const toggleButton = document.querySelector(".card-toggle");
 
-  typingSoundSource = audioContext.createBufferSource();
-  typingSoundSource.buffer = typingSoundBuffer;
-  typingSoundSource.loop = true;
-  typingSoundSource.connect(audioContext.destination);
-  typingSoundSource.start();
-}
-
-function stopTypingSound() {
-  if (typingSoundSource) {
-    typingSoundSource.stop();
-    typingSoundSource.disconnect();
+toggleButton.addEventListener("change", () => {
+  if (toggleButton.checked) {
+    card.classList.add("shifted");
+  } else {
+    card.classList.remove("shifted");
   }
-}
+});
 
-initAudio();
+let isFirstClick = true;
 
-let openPopups = 0;
-
-let typingSoundBuffer = null;
-
-function createPopupMessage(
-  messageKey,
-  buttons,
-  speed,
-  pauseAtChar,
-  pauseDuration
-) {
-  const message = getTranslation(messageKey);
-  openPopups++;
-  if (openPopups === 1) {
-    document.body.classList.add("disable-interaction");
-  }
-
-  if (audioContext.state === "suspended") {
-    audioContext.resume();
-  }
-
-  const popup = document.createElement("div");
-  popup.classList.add("alert-box");
-  popup.innerHTML = `
-    <p><span id="popup-text"></span></p>
-    <div>
-      ${buttons
-        .map(
-          (button) =>
-            `<button id="${button.id}">${getTranslation(
-              button.textKey
-            )}</button>`
-        )
-        .join("")}
-    </div>
-  `;
-  document.body.appendChild(popup);
-
-  const textElement = popup.querySelector("#popup-text");
-  let i = 0;
-
-  popup.querySelectorAll("button").forEach((button) => {
-    button.style.opacity = "0";
-    button.style.transition = "opacity 0.5s ease-in-out";
-  });
-
-  let currentSoundSource = null;
-
-  function startSound() {
-    if (!typingSoundBuffer) return;
-    if (currentSoundSource) {
-      currentSoundSource.stop();
-      currentSoundSource.disconnect();
-    }
-    currentSoundSource = audioContext.createBufferSource();
-    currentSoundSource.buffer = typingSoundBuffer;
-    currentSoundSource.loop = true;
-    currentSoundSource.connect(audioContext.destination);
-    currentSoundSource.start();
-  }
-
-  function stopSound() {
-    if (currentSoundSource) {
-      currentSoundSource.stop();
-      currentSoundSource.disconnect();
-      currentSoundSource = null;
-    }
-  }
-
-  startSound();
-
-  function type() {
-    if (i < message.length) {
-      textElement.textContent += message.charAt(i);
-      i++;
-
-      if (i === pauseAtChar) {
-        stopSound();
-        setTimeout(() => {
-          startSound();
-          type();
-        }, pauseDuration);
-      } else {
-        setTimeout(type, speed);
-      }
-    } else {
-      stopSound();
-      popup.querySelectorAll("button").forEach((button) => {
-        button.style.opacity = "1";
-      });
-    }
-  }
-
-  type();
-
-  buttons.forEach((button) => {
-    const btnElement = popup.querySelector(`#${button.id}`);
-    btnElement.addEventListener("click", () => {
-      stopSound();
-      popup.remove();
-      openPopups--;
-
-      if (openPopups === 0) {
-        document.body.classList.remove("disable-interaction");
-      }
-
-      if (typeof button.action === "function") {
-        button.action();
-      }
-    });
-  });
-}
-
-document.addEventListener("click", initAudio, { once: true });
-
-function switchPage(currentPage, nextPage) {
-  currentPage.classList.add("fade-out");
-  setTimeout(() => {
-    currentPage.classList.add("hidden");
-    currentPage.classList.remove("fade-out");
-    nextPage.classList.remove("hidden");
-    nextPage.classList.add("fade-in");
+openButton.addEventListener("click", () => {
+  if (isFirstClick) {
+    createPopupMessage(
+      "mocking_nehir",
+      [
+        {
+          id: "m1",
+          textKey: "mocking_thanks",
+          action: () => {
+            createPopupMessage(
+              "mocking_thanks_reply",
+              [{ id: "m3", textKey: "continue", action: () => {} }],
+              40
+            );
+          },
+        },
+        {
+          id: "m2",
+          textKey: "seriously",
+          action: () => {
+            createPopupMessage(
+              "seriously_reply",
+              [{ id: "m4", textKey: "continue", action: () => {} }],
+              40
+            );
+          },
+        },
+      ],
+      50
+    );
+    isFirstClick = false;
     setTimeout(() => {
-      nextPage.classList.remove("fade-in");
-    }, 500);
-  }, 500);
-}
+      const notification2 = document.getElementById("notification2");
+      notification2.classList.add("show");
+    }, 5000);
+  }
+});
+
+notification2.addEventListener("click", function () {
+  createPopupMessage(
+    "reminder",
+    [
+      { id: "m5", textKey: "stay", action: () => {
+      } },
+      {
+        id: "m6",
+        textKey: "suna",
+        action: () => {
+          window.location.href = "suna_gift.html";
+        },
+      },
+    ],
+    40
+  );
+});
+
+document.getElementById('secretbutton').addEventListener('click', function() {
+  const textToCopy = `HiNhr
+ Uu aa lu ei i aılmyroaiisnaabnhrzmnkdr ia aıtlyı.V ei aed,Nhr l rjm atmdğmgn iei
+  Ozmna e eitrehkıd ibrşybliodm sıd ubnmaaoaı iedğli(aad ei) m olm edğrhrşyeigl aaıbrdnymkznı. 
+ iio uu,alnadğmgnnii iel ilkebrRGouu(mr ii amy lnaıtm i at ouc ğatm m e eiörne çnytrnezmnmyku uyze ir pa te oud adm
+  Nye şemsl uoouuypaabşaıı l ü aketmk:"ei,bnmglcğm ekryrm yılğ ölnid.
+  Blyru,kryrmii i eei ot.Snomsyı,ou amy aaytı luuufr te ekdrzmnaıd imyrm
+  Ee a lrkn ee seiiialmdya,it ıavriou
+ i:Stn amm alyrkbn o al eei aadrı—ei çnhr'l'çkdğri
+ k:Zhiiadnatnv eibrou eitrcs laaynedri. Ü:Sn osz aa inta lcğm
+  Bnic lu see,aauaı e esnnkdrnegzlbrdğşki aaimşmi.
+uay eic,oul errakdşomy üüeii ii?İiii yıklaıhçdğuglio..err Brd,sn eieypa çnçkhycnıd,kmnhtl luuubliou,oyze knznd ul luuuvraaaı.Snüeiedşn a,dzlmkii dma,snyşlıı aıc  aüeiedşn aaatr üütakdşnkyeiibl ouu raalrmznaksna ouuu,aae zna uad üüekrıdrst.
+Brd klaSn'aakdşaıl alşre a i eeldr iidnSHHFBJJHBHB
+hts/v.itkcmZrYba"cp h iki ei,
+ znzmnod,dğlm?Htraıo lblri m e e aa aeebrztknııdm esnnsyne ei,ikpoeiypı—ou üüstn. 
+  aalrwbglşim aknahçi e imyru.Alnab ei n dğmbl eid hl adğl,aakdaav ie e el liibyğ i eei aadm
+  Blyrmsn sıd ou üü çnstyebrit i P yn Ooigb)ypaıpalmşı.Brhfabynaurşı,aahrşy ğemkii eeic aaı ot,b üdnfkiitlemkzrnaklı. 
+ es,it eeeş— yn amy aldğmikgnfr ti i Nhr ei eeeiiv aieiiadnıaynedri" 
+ iiosn aiei çnbrhdfmyku e laadn ynypaadh aknodğm akemmn aa aa lrıbliou. 
+ ğrtmoaa edmkitdğm naaısn şeks esyn: Br ieiypaısğaaa aaçkfzadnymkznıdnbnmii e ik o eel. İi inm yıltı ebn i ynglşiiiiomy ölnidn
+ ç aasnuakdrmnetroaaı. 
+ ecleosnitmm m mrmbnd ei aeid üe i eiilkypbliidr
+Sn'aglne nnatka raa laıdşnblrmsn knznar ams i or emyr.tka. i e aahdy amkii o eealyı ii aaıodğn imyrm  üdniiii esçuodğn asycğm e zrn üeiyp üete çnaı t e ei şkyknaod zrn üeiypckı.Drs raaı ımtn i,çğmzakdşaııı raıdnknşrz m naıdnSn ayzn aş üütü
+(i eoud uay raalrnaykaıkntmbrçt ieigbyi JBDJSSDFSF)"tp:/ttko.o/SkLq/ oyteln`;    navigator.clipboard.writeText(textToCopy)
+      .then(() => {
+          this.textContent = 'Copied!';          
+          setTimeout(() => {
+            createPopupMessage(
+              "secretbutton_message",
+              [
+                { id: "m7", textKey: "okay", action: () => {
+                } }
+              ],
+              40
+            );
+              this.textContent = 'Hi';
+          }, 2000);
+      })
+      .catch(err => {
+          console.error('Failed to copy: ', err);
+          this.textContent = 'Error!';
+          this.style.backgroundColor = '#f44336'; 
+      });
+});
+
+
+

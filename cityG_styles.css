@@ -1,0 +1,556 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:300italic);
+@import url('common.css');
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+  background: #ee9ca7;
+}
+
+#cake {
+  display: block;
+  position: relative;
+  margin: -10em auto 0 auto;
+}
+
+/* ============================================== Candle
+*/
+
+.velas {
+  background: #ffffff;
+  border-radius: 10px;
+  position: absolute;
+  top: 228px;
+  left: 50%;
+  margin-left: -2.4px;
+  margin-top: -8.33333333px;
+  width: 5px;
+  height: 35px;
+  transform: translateY(-300px);
+  backface-visibility: hidden;
+  animation: in 500ms 6s ease-out forwards;
+}
+.velas:after,
+.velas:before {
+  background: rgba(255, 0, 0, 0.4);
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2.22222222px;
+}
+.velas:after {
+  top: 25%;
+  left: 0;
+}
+.velas:before {
+  top: 45%;
+  left: 0;
+}
+
+/* ============================================== Fire
+*/
+
+.fuego {
+  border-radius: 100%;
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  margin-left: -2.6px;
+  width: 6.66666667px;
+  height: 18px;
+}
+.fuego:nth-child(1) {
+  animation: fuego 2s 6.5s infinite;
+}
+.fuego:nth-child(2) {
+  animation: fuego 1.5s 6.5s infinite;
+}
+.fuego:nth-child(3) {
+  animation: fuego 1s 6.5s infinite;
+}
+.fuego:nth-child(4) {
+  animation: fuego 0.5s 6.5s infinite;
+}
+.fuego:nth-child(5) {
+  animation: fuego 0.2s 6.5s infinite;
+}
+
+/* ============================================== Animation Fire
+*/
+
+@keyframes fuego {
+  0%, 100% {
+    background: rgba(254, 248, 97, 0.5);
+    box-shadow: 0 0 40px 10px rgba(248, 233, 209, 0.2);
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    background: rgba(255, 50, 0, 0.1);
+    box-shadow: 0 0 40px 20px rgba(248, 233, 209, 0.2);
+    transform: translateY(-20px) scale(0);
+  }
+}
+
+@keyframes in {
+  to {
+    transform: translateY(0);
+  }
+}
+
+.text {
+  color: #8b6a60;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  font-style:italic;
+  text-align: center;
+  padding-bottom: 3vh;
+  h1 {
+    font-size: 1.4em;
+  }
+}  
+
+.birthdayCard {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-40%, -50%) scale(1); 
+  min-width: 150px;
+  min-height: 250px;
+  transform-style: preserve-3d;
+  perspective: 2500px;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  opacity: 0;
+  z-index: -1;
+}
+
+.birthdayCard.visible {
+  transform: translate(-40%, -50%) scale(1); 
+  opacity: 1;
+  z-index: 1001;
+}
+
+.birthdayCard.shifted {
+  transform: translate(-17%, -50%) scale(1);
+}
+
+.x-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #8b6a60;
+  cursor: pointer;
+  z-index: 1002;
+  transition: color 0.3s ease;
+}
+
+.x-btn:hover {
+  color: #ee9ca7; 
+}
+
+.card-toggle {
+  display: none;
+}
+
+.toggle-btn {
+  position: absolute;
+  bottom: 10px;
+  left: 105px;
+  background-color: #48D1CC;
+  color: #fefae9;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  font-style: italic;
+  cursor: pointer;
+  z-index: 1002;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-btn:hover {
+  background-color: #ee9ca7;
+}
+
+.toggle-btn::before {
+  content: "Open";
+}
+
+.card-toggle:checked ~ .toggle-btn::before {
+  content: ""; 
+}
+
+.card-toggle:checked ~ .toggle-btn::after {
+  content: "Close";
+}
+
+.card-toggle:checked ~ .cardFront {
+  transform: rotateY(-160deg);
+}
+
+.card-toggle:checked ~ .cardFront .front-text,
+.card-toggle:checked ~ .cardFront .wrap-deco,
+.card-toggle:checked ~ .cardFront .wrap-decoTwo,
+.card-toggle:checked ~ .cardFront .plate {
+  display: none;
+}
+
+.card-toggle:checked ~ .cardFront .photo-container {
+  opacity: 1;
+}
+.card-toggle:checked ~ .cardFront .meow {
+  opacity: 1;
+}
+
+.cardFront {
+  position: relative;
+  background-color: #fff;
+  width: 250px;
+  height:350px;
+  overflow: hidden;
+  transform-origin: left;
+  box-shadow: inset 100px 20px 100px rgba(255, 255, 255, 0.13), 30px 0 50px rgba(0,0,0,0.1);
+  transition: .4s;
+}
+
+.happy, .toyou {
+  position: relative;
+  font-family: didot;
+  text-align: center;
+  backface-visibility: hidden;
+  font-size: 30px; 
+}
+
+.happy {
+  top:198px;
+}
+
+.toyou {
+  top:123px;
+}
+
+.bday {
+  position: relative;
+  font-family: arial;
+  font-size: 35px;
+  text-align: center;
+  top:163px;
+}
+
+.wrap-deco {
+  position: absolute;
+  top:-230px;
+  left:-200px;
+}
+
+.decorations {
+  position: absolute;
+  width: 400px;
+  height: 300px;
+  border: 3px solid #333;
+  border-radius: 50%;
+}
+
+.decorations:before, .decorations:after, .decorationsTwo:before, .decorationsTwo:after, .decorationsThree:before, .decorationsThree:after {
+  content:"";
+  position: absolute;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  width:0;
+  height:0;
+}
+
+.decorations:before {
+  border-top: 40px solid #f15bb5;
+  top:297px;
+  left:210px;
+  transform: rotate(-5deg);
+}
+
+.decorations:after{
+  border-top: 40px solid #f4d35e;
+  top:288px;
+  left:260px;
+  transform: rotate(-17deg);
+}
+
+.decorationsTwo:before {
+  border-top: 40px solid #00f5d4;
+  top:268px;
+  left:315px;
+  transform: rotate(-30deg);
+}
+
+.decorationsTwo:after, .decorationsThree:after {
+  border-top: 40px solid #9b5de5;
+  top:238px;
+  left:355px;
+  transform: rotate(-40deg);
+}
+
+.wrap-decoTwo {
+  transform: scaleX(-1);
+  position: absolute;
+  top:-230px;
+  left:445px; 
+}
+
+.decorationsThree:before {
+  border-top: 40px solid #00bbf9;
+  top:268px;
+  left:315px;
+  transform: rotate(-30deg);
+}
+
+.plate {
+  position: absolute;
+  width: 130px;
+  height: 5px;
+  background-color: #00bbf9;
+  left:60px;
+  top:190px;
+}
+
+.cakeo {
+  position: absolute;
+  overflow: hidden;
+  width:100px;
+  height: 50px;
+  background-color: #f15bb5;
+  border-radius: 10px 10px 0 0;
+  top:-50px;
+  left:15px;
+  box-shadow: inset 0 -15px #f9c74f, inset 0 15px #432818;
+}
+
+.cakeo:before {
+  content:"";
+  position: absolute;
+  background-color: #432818;
+  width:10px;
+  height:20px;
+  top:5px;
+  border-radius:20px;
+  box-shadow: 10px 5px #f15bb5, 20px 0px #432818, 30px 2px #f15bb5, 40px 5px #432818, 50px 5px #f15bb5, 60px 0px #432818, 70px 5px #f15bb5, 80px 5px #432818, 90px 5px #f15bb5;
+}
+
+.plate:before {
+  content:"";
+  position: absolute;
+  background: repeating-linear-gradient(-45deg, #9b5de5, #9b5de5 3px, #00f5d4 3px, #00f5d4 6px);
+  width:7px;
+  height: 25px;
+  top:-75px;
+  left:61px;
+}
+
+.plate:after {
+  content:"";
+  position: absolute;
+  width:1px;
+  height: 5px;
+  background-color: #333;
+  top:-80px;
+  left:64px;
+}
+
+
+.flame {
+  position: absolute;
+  background-color: #fb5607;
+  border-radius: 80% 0 55% 50% / 55% 0 80% 50%;
+  transform: rotate(-45deg);
+  width:15px;
+  height:15px;
+  opacity:0.7;
+  top:-93px;
+  left:57px;
+}
+
+.cardInside {
+  position: absolute;
+  background-color: #fff;
+  width: 250px;
+  height:350px;
+  z-index:-1;
+  left:0;
+  top:0;
+  box-shadow: inset 100px 20px 100px rgba(255, 255, 255, 0.2);
+}
+
+.button-4 {
+  position: absolute;
+  bottom: 8px;
+  left: 19px;
+  appearance: none;
+  background-color: #FAFBFC;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+  box-sizing: border-box;
+  color: #24292E;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  list-style: none;
+  padding: 6px 16px;
+  transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+  word-wrap: break-word;
+  z-index: 2;
+}
+
+.button-4:hover {
+  background-color: #F3F4F6;
+  text-decoration: none;
+  transition-duration: 0.1s;
+}
+
+.button-4:disabled {
+  background-color: #FAFBFC;
+  border-color: rgba(27, 31, 35, 0.15);
+  color: #959DA5;
+  cursor: default;
+}
+
+.button-4:active {
+  background-color: #EDEFF2;
+  box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+  transition: none 0s;
+}
+
+.button-4:focus {
+  outline: 1px transparent;
+}
+
+.button-4:before {
+  display: none;
+}
+
+.button-4:-webkit-details-marker {
+  display: none;
+}
+
+.photo-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scaleX(1);
+    text-align: center; 
+    z-index: 2;
+    opacity: 0; 
+    transition: opacity 0.5s ease; 
+}
+
+.meow {
+  position: absolute;
+  left: 10%;
+  top: 5%;
+  opacity: 0;
+  z-index: 2;
+  transition: opacity 0.5s ease; 
+  cursor: pointer;
+}
+
+.photo {
+    width: 150px;
+    height: 250px; 
+    border-radius: 40px;
+    overflow: hidden;
+    border: 4px solid #fefae9;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-top: none;
+}
+
+.photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    object-position: center top; 
+}
+
+.front-text {
+    position: relative;
+    top: -30px; 
+}
+
+
+.inside-text {
+  position: relative;
+  top:-160px;
+  transform: scale(0.7);
+}
+
+.wishes {
+  position: relative;
+  top:-120px;
+  margin: 25px;
+  font-size: 1.2rem;
+  p {
+    font-family: 'Brush Script MT', cursive;
+    font-weight: bolder;
+    color: #333;
+  }
+}
+
+.name {
+  margin-left:150px;
+}
+
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  .birthdayCard {
+    transform: translate(-50%, -50%) scale(0.9) scale(0);
+  }
+
+  .birthdayCard.visible {
+    transform: translate(-50%, -50%) scale(0.9) scale(1);
+  }
+
+  .birthdayCard.shifted {
+    /* Shift position when opened */
+    transform: translate(-17%, -60%) scale(0.7) scale(1);
+  }
+  .alert-box {
+    top: 70%;
+    left: 49%;
+    width: 93%;
+  }
+  .alert-box p {
+    font-size: 24px;
+  }
+}
+
+@media only screen and (min-device-width: 481px) and (max-device-width: 1000px) {
+  .birthdayCard {
+    transform: translate(-50%, -50%) scale(0.9) scale(0);
+  }
+
+  .birthdayCard.visible {
+    transform: translate(-50%, -50%) scale(0.9) scale(1);
+  }
+
+  .birthdayCard.shifted {
+    /* Shift position when opened */
+    transform: translate(-4%, -50%) scale(0.9) scale(1);
+  }
+  .alert-box {
+    width: 60%;
+  }
+  .alert-box p {
+    font-size: 24px;
+  }
+}

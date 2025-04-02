@@ -12,18 +12,44 @@ function createConfetti() {
 }
 setInterval(createConfetti, 350);
 
+let isTurkishFirstTime = true;
+document.getElementById("language-selector").addEventListener("change", (e) => {
+  const selectedLanguage = e.target.value;
+
+  if (selectedLanguage === "tr" && isTurkishFirstTime) {
+    isTurkishFirstTime = false; 
+
+    createPopupMessage(
+      "tr_choosed", 
+      [
+        {
+          id: "J31",
+          textKey: "okay",
+          action: () => {
+          },
+        },
+      ],
+      40
+    );
+  }
+  loadLanguage(selectedLanguage);
+});
 
 doorButton.addEventListener("click", () => {
   createPopupMessage(
-    "doorMessage",
+    "door_open_prompt",
     [
       {
         id: "J1",
-        textKey: "doNothing",
+        textKey: "door_open",
         action: () => {
+          doorButton.classList.add("hidden");
+          languageSelector.classList.add("hidden");
+          switchPage(homepage, selection1);
+          animatedBackground.classList.remove("hidden");
         },
       },
-      { id: "J2", textKey: "doNothing", action: () => {} },
+      { id: "J2", textKey: "door_ignore", action: () => {} },
     ],
     40
   );
@@ -32,7 +58,7 @@ doorButton.addEventListener("click", () => {
 userRadios.forEach((radio) => {
   radio.addEventListener("change", () => {
     if (radio.value === "Nehir") {
-      proceedButton.textContent = getTranslation("clickHereFourEyes");
+      proceedButton.textContent = getTranslation("four_eyes_button");
     } else {
       proceedButton.textContent = getTranslation("proceed");
       proceedButton.style.transition = "transform 0.3s ease";
@@ -58,14 +84,14 @@ proceedButton.addEventListener("click", () => {
 
       if (clickCount === 3) {
         createPopupMessage(
-          "glassesQuestion",
+          "glasses_question",
           [
             {
               id: "J7",
               textKey: "no",
               action: () => {
                 createPopupMessage(
-                  "justClickButton",
+                  "four_eyes_button_click",
                   [{ id: "J4", textKey: "continue", action: () => {} }],
                   40,
                   3,
@@ -78,7 +104,7 @@ proceedButton.addEventListener("click", () => {
               textKey: "yes",
               action: () => {
                 createPopupMessage(
-                  "wearTwoGlasses",
+                  "glasses_double",
                   [{ id: "J4", textKey: "continue", action: () => {} }],
                   40,
                   3,
@@ -97,6 +123,90 @@ proceedButton.addEventListener("click", () => {
   if (selectedUser && selectedUser.value === "Nehir" && clickCount === 4) {
     switchPage(selection1, questions);
   }
+  if (selectedUser && selectedUser.value === "Emir") {
+    createPopupMessage(
+      "emir_choosed", 
+      [
+        {
+          id: "J34",
+          textKey: "hi1",
+          action: () => {
+          },
+        },
+        {
+          id: "J35",
+          textKey: "hi2",
+          action: () => {
+          },
+        },
+      ],
+      40
+    );
+  }
+  if (selectedUser && selectedUser.value === "Suna") {
+    createPopupMessage(
+      "suna_choosed", 
+      [
+        {
+          id: "J34",
+          textKey: "hi1",
+          action: () => {
+          },
+        },
+        {
+          id: "J35",
+          textKey: "hi2",
+          action: () => {
+          },
+        },
+      ],
+      40
+    );
+  }
+  if (selectedUser && selectedUser.value === "Ece") {
+    createPopupMessage(
+      "ece_choosed",
+      [
+        {
+          id: "J34",
+          textKey: "hi1",
+          action: () => {
+            createPopupMessage(
+              "ece_hi_reply", 
+              [
+                {
+                  id: "J34",
+                  textKey: "continue",
+                  action: () => {
+                  },
+                },
+              ],
+              70
+            );
+          },
+        },
+        {
+          id: "J35",
+          textKey: "hi2",
+          action: () => {
+            createPopupMessage(
+              "ece_hi_reply", 
+              [
+                {
+                  id: "J34",
+                  textKey: "continue",
+                  action: () => {
+                  },
+                },
+              ],
+              70
+            );
+          },
+        },
+      ],
+      40
+    );
+  }
 });
 
 yesQ1.addEventListener("click", () => {
@@ -104,18 +214,18 @@ yesQ1.addEventListener("click", () => {
 });
 noQ1.addEventListener("click", () => {
   createPopupMessage(
-    "stillWelcome",
+    "still_welcome",
     [
       {
         id: "J3",
         textKey: "okay",
         action: () => {
           createPopupMessage(
-            "goBackAndClickName",
+            "go_Back&Click",
             [
               {
                 id: "J4",
-                textKey: "goBack",
+                textKey: "go_Back",
                 action: () => {
                   switchPage(questions, selection1);
                   userRadios.forEach((radio) => (radio.checked = false));
@@ -141,18 +251,18 @@ yesQ2.addEventListener("click", () => {
 
 noQ2.addEventListener("click", () => {
   createPopupMessage(
-    "stillWelcome",
+    "still_welcome",
     [
       {
         id: "J5",
         textKey: "okay",
         action: () => {
           createPopupMessage(
-            "goBackAndClickName",
+            "go_Back&Click",
             [
               {
                 id: "J6",
-                textKey: "goBack",
+                textKey: "go_Back",
                 action: () => {
                   switchPage(questions, selection1);
                   userRadios.forEach((radio) => (radio.checked = false));
@@ -174,7 +284,7 @@ noQ2.addEventListener("click", () => {
 
 yesQ3.addEventListener("click", () => {
   createPopupMessage(
-    "notSureNehir",
+    "not_Sure",
     [{ id: "J6", textKey: "continue", action: () => {} }],
     40
   );
@@ -184,7 +294,7 @@ yesQ3.addEventListener("click", () => {
 
 yesQ33.addEventListener("click", () => {
   createPopupMessage(
-    "notSureNehir",
+    "not_Sure",
     [{ id: "J6", textKey: "continue", action: () => {} }],
     40
   );
@@ -193,6 +303,7 @@ yesQ33.addEventListener("click", () => {
 });
 
 let wrongAttempts = 0;
+let triggeredWrongAttempt = false;
 
 confirmFinalButton.addEventListener("click", () => {
   const selectedChoice = document.querySelector(
@@ -201,38 +312,51 @@ confirmFinalButton.addEventListener("click", () => {
 
   if (!selectedChoice) {
     createPopupMessage(
-      "chooseNothing",
+      "nothing_choosed",
       [{ id: "J20", textKey: "okay", action: () => {} }],
       40
     );
     return;
   }
 
-  if (wrongAttempts == 3) {
+  if (selectedChoice.id == "cbx5") {
+    wrongAttempts = 0;
+    triggeredWrongAttempt = false; // Reset the flag when the correct answer is chosen
+    switchPage(finalSelection, congratsPage);
     createPopupMessage(
-      "thirdWrongAttempt",
+      "nehir_welcome",
+      [{ id: "J21", textKey: "continue", action: () => {} }],
+      140
+    );
+    return;
+  }
+
+  if (wrongAttempts == 2 && !triggeredWrongAttempt) {
+    triggeredWrongAttempt = true; // Prevent it from triggering again
+    createPopupMessage(
+      "third_wrong_attempt",
       [
         {
           id: "J25",
           textKey: "continue",
           action: () => {
             createPopupMessage(
-              "realNehirWouldKnow",
+              "real_Nehir",
               [
                 {
                   id: "J13",
                   textKey: "continue",
                   action: () => {
                     createPopupMessage(
-                      "isThatYouNehir",
+                      "is_that_you",
                       [
                         { id: "J14", textKey: "yes", action: () => {} },
                         {
                           id: "J15",
-                          textKey: "ofCourseNehir",
+                          textKey: "ofcourse_Nehir",
                           action: () => {
                             createPopupMessage(
-                              "gettingSuspicious",
+                              "suspicious",
                               [
                                 {
                                   id: "J26",
@@ -265,45 +389,34 @@ confirmFinalButton.addEventListener("click", () => {
     return;
   }
 
-  if (selectedChoice.id == "cbx5") {
-    wrongAttempts = 0;
-    switchPage(finalSelection, congratsPage);
-    createPopupMessage(
-      "welcomeNehir",
-      [{ id: "J21", textKey: "continue", action: () => {} }],
-      140
-    );
-    return;
-  }
-
   if (selectedChoice.id !== "cbx5") {
     wrongAttempts++;
 
     switch (selectedChoice.id) {
       case "cbx2":
         createPopupMessage(
-          "whatRonaldo",
+          "Ronaldo_message",
           [{ id: "J16", textKey: "continue", action: () => {} }],
           40
         );
         break;
       case "cbx4":
         createPopupMessage(
-          "naniWhat",
+          "nani_message",
           [{ id: "J17", textKey: "continue", action: () => {} }],
           40
         );
         break;
       case "cbx1":
         createPopupMessage(
-          "arigatoThanks",
+          "arigato_message",
           [{ id: "J18", textKey: "continue", action: () => {} }],
           40
         );
         break;
       case "cbx3":
         createPopupMessage(
-          "dontTryAgain",
+          "soywa_message",
           [{ id: "J19", textKey: "continue", action: () => {} }],
           40
         );
@@ -318,7 +431,7 @@ yayyButton.addEventListener("click", () => {
 
 doNothingButton.addEventListener("click", () => {
   createPopupMessage(
-    "youDidNothing",
+    "Did_Nothing",
     [{ id: "J20", textKey: "okay", action: () => {} }],
     40
   );
@@ -326,5 +439,35 @@ doNothingButton.addEventListener("click", () => {
 });
 
 continueButton.addEventListener("click", () => {
-  window.location.href = "cake.html";
+  switchPage(securityBox, spcontainer);
+  createPopupMessage(
+    "city&soya_gift",
+    [
+      { id: "J28", textKey: "city", action: () => expandSide('left') },
+      { id: "J29", textKey: "suna", action: () => expandSide('right') }
+    ],
+    40
+  );
 });
+
+function expandSide(side) {
+  const container = document.getElementById('sp-container');
+  
+  if (side === 'left') {
+    container.classList.add('sp-active-left');
+    container.classList.remove('sp-active-right');
+    
+    setTimeout(() => {
+      container.classList.add('sp-hidden');
+      window.location.href = "city_gift.html";
+    }, 1600);
+  } else {
+    container.classList.add('sp-active-right');
+    container.classList.remove('sp-active-left');
+    
+    setTimeout(() => {
+      container.classList.add('sp-hidden');
+      window.location.href = "suna_gift.html";
+    }, 1600);
+  }
+}

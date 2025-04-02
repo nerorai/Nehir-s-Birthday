@@ -5,10 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Birthday Cake</title>
-    <link rel="stylesheet" href="Cake/styles.css">
+    <link rel="stylesheet" href="cityG_styles.css">
 </head>
 
 <body>
+    <div id="language-selector-container">
+        <select id="language-selector" class="hidden">
+          <option value="en">English</option>
+          <option value="tr">Türkçe</option>
+        </select>
+    </div>
     <div class="velas">
         <div class="fuego"></div>
         <div class="fuego"></div>
@@ -178,13 +184,17 @@
         <p>ırmak</p>
     </div>
     <div id="notification" class="notification">
-        You got a message!
+        CLICK MEEEEEEEEEEEEEE
+    </div>
+    <div id="notification2" class="notification">
+        Wanna see Suna's gift?
     </div>
     <div class="birthdayCard">
         <input type="checkbox" id="card-toggle" class="card-toggle">
         <label for="card-toggle" class="toggle-btn"></label>
         <div class="x-btn">×</div>
         <div class="cardFront">
+            <img src="data/img/mewo.gif" alt="meow" class="meow">
             <div class="photo-container">
                 <div class="photo">
                     <img src="data/img/culprit.png" alt="Birthday Photo">
@@ -209,6 +219,7 @@
             </div>
         </div>
         <div class="cardInside">
+            <button id="secretbutton" class="button-4" role="button">Hi</button>
             <div class="inside-text">
                 <h3 class="happy">HAPPY</h3>
                 <h2 class="bday">BIRTHDAY</h2>
@@ -216,13 +227,13 @@
             </div>
             <div class="wishes">
                 <p>Dear Friend,</p>
-                <p>Happy birthday!! May All Your Dreams and Wishes come true, Of course, only the good dreams. </p>
+                <p>As you get older three things happen. The first is your memory goes, and I can’t remember the other two. Happy birthday! </p>
                 <p class="name">City</p>
             </div>
         </div>
     </div>
     <script defer src="functions.js"></script>
-    <script defer src="Cake/script.js"></script>
+    <script defer src="cityG_scripto.js"></script>
 </body>
 
 </html>
