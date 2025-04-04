@@ -1,4 +1,13 @@
-var w = c.width = window.innerWidth,
+document.addEventListener("DOMContentLoaded", function() {
+	const savedLanguage = localStorage.getItem('selectedLanguage') || 'en';
+	
+	const languageSelector = document.getElementById("language-selector");
+	if (languageSelector) {
+	  languageSelector.value = savedLanguage;
+	  loadLanguage(savedLanguage);
+	}
+  });
+  var w = c.width = window.innerWidth,
 		h = c.height = window.innerHeight,
 		ctx = c.getContext( '2d' ),
 		

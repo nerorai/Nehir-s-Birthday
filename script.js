@@ -15,6 +15,7 @@ setInterval(createConfetti, 350);
 let isTurkishFirstTime = true;
 document.getElementById("language-selector").addEventListener("change", (e) => {
   const selectedLanguage = e.target.value;
+  localStorage.setItem('selectedLanguage', selectedLanguage);
 
   if (selectedLanguage === "tr" && isTurkishFirstTime) {
     isTurkishFirstTime = false; 

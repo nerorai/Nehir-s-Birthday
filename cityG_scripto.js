@@ -1,3 +1,13 @@
+document.addEventListener("DOMContentLoaded", function() {
+  const savedLanguage = localStorage.getItem('selectedLanguage') || 'en';
+  
+  const languageSelector = document.getElementById("language-selector");
+  if (languageSelector) {
+    languageSelector.value = savedLanguage;
+    loadLanguage(savedLanguage);
+  }
+});
+
 document.addEventListener("DOMContentLoaded", function () {
   var birthdayCard = document.querySelector(".birthdayCard");
   birthdayCard.classList.remove("visible");
