@@ -1,6 +1,10 @@
 {
   "en": {
+    "dark": "Congratulations! You’ve saved your eyes but killed the light.",
     "tr_choosed": "Yine de biraz İngilizce göreceksin."  ,
+    "born_in": "İngiltere'de doğdum",
+    "nervous_okay": "O-Okay",
+    "quit": "Exit",
     "door_open_prompt": "A white door casts a faint shadow. \nWhat would you like to do?",
     "door_open": "OPEN THE DOOR",
     "door_ignore": "DO NOTHING",
@@ -48,7 +52,11 @@
     "secretbutton_message": "This is the 'strange' message I told you about. follow the steps I mentioned to reveal the secret message."
   },
   "tr": {
+    "dark": "Tebrikler! Gözlerinizi kurtardınız ama ışığı öldürdünüz.",
     "tr_choosed": "Yine de biraz İngilizce göreceksin."  ,
+    "born_in": "İngiltere'de doğdum",
+    "nervous_okay": "O-Okay",
+    "quit": "çıkış",
     "door_open_prompt": "Beyaz bir kapı hafif bir gölge düşürüyor. \nNe yapmak istersiniz?",
     "door_open": "KAPıYı AÇ",
     "door_ignore": "HİÇBİR ŞEY YAPMA",

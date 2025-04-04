@@ -22,12 +22,8 @@ document.getElementById("language-selector").addEventListener("change", (e) => {
     createPopupMessage(
       "tr_choosed", 
       [
-        {
-          id: "J31",
-          textKey: "okay",
-          action: () => {
-          },
-        },
+        { id: "J28", textKey: "born_in",},
+        { id: "J29", textKey: "nervous_okay",}
       ],
       40
     );
@@ -471,3 +467,30 @@ function expandSide(side) {
     }, 1600);
   }
 }
+
+document.querySelector('.pic').addEventListener('click', function() {
+  const overlay = document.querySelector('.black-overlay');
+  overlay.classList.toggle('active');
+});
+
+document.querySelector('.black-overlay').addEventListener('click', function() {               
+  const overlay = this;
+  this.style.pointerEvents = 'none';  
+  createPopupMessage(
+    "dark",
+       [
+      {
+        id: "J31",
+        textKey: "continue",
+        action: () => {
+          this.style.pointerEvents = '';
+        },
+      },
+      { id: "J32", textKey: "quit", action: () => {
+        this.style.pointerEvents = '';
+        overlay.classList.remove('active');
+      } },
+    ],
+    40
+  );
+});
