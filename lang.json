@@ -49,7 +49,7 @@
     "suna": "Suna",
     "stay": "Stay a bit longer",
     "reminder": "City and Suna both made you gifts, do you want to see the other?",
-    "secretbutton_message": "This is the 'strange' message I told you about. follow the steps I mentioned to reveal the secret message."
+    "secretbutton_message": "This is the 'strange' button I told you about. follow the steps I mentioned to reveal the secret message."
   },
   "tr": {
     "dark": "Tebrikler! Gözlerinizi kurtardınız ama ışığı öldürdünüz.",
@@ -101,7 +101,7 @@
     "suna": "Suna",
     "stay": "Biraz daha kal",
     "reminder": "City ve Suna sana hediye yaptı, diğerini görmek ister misin?",
-    "secretbutton_message": "Bu, sana bahsettiğim 'tuhaf' mesaj. Gizli mesajı açığa çıkarmak için söylediğim adımları takip et."  
+    "secretbutton_message": "Bu, sana bahsettiğim 'tuhaf' düğme. Gizli mesajı açığa çıkarmak için söylediğim adımları takip et."  
 
   }
 }
